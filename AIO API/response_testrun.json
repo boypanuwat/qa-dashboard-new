@@ -1,0 +1,2027 @@
+{
+  "items": [
+    {
+      "ID": 4012,
+      "testCase": {
+        "ID": 7782,
+        "jiraProjectID": 10000,
+        "permission": {
+          "value": 15
+        },
+        "key": "SCRUM-TC-7782",
+        "version": 1,
+        "title": "แสดง Tour Guide ครั้งแรก",
+        "description": "เมื่อเปิดแอปครั้งแรก แล้วต้องแสดง Tour Guide",
+        "precondition": "ติดตั้งแอปใหม่",
+        "ownedByID": "6092270a7a30960069fcae4e",
+        "folder": {
+          "ID": 725,
+          "name": "[Res App] GU",
+          "description": null,
+          "parentID": 4
+        },
+        "status": {
+          "ID": 3,
+          "name": "Published",
+          "description": "The test is ready for execution"
+        },
+        "priority": {
+          "ID": 2,
+          "name": "High",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "scriptType": {
+          "ID": 1,
+          "name": "Classic",
+          "description": "Steps represented in default representation - step, data and expected results",
+          "isEnabled": true
+        },
+        "type": {
+          "ID": 7,
+          "name": "Smoke",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "jiraComponentID": null,
+        "jiraComponentIDs": [],
+        "jiraReleaseID": null,
+        "jiraReleaseIDs": [],
+        "estimatedEffort": null,
+        "createdDate": 1776743304084,
+        "updatedDate": null,
+        "isArchived": false,
+        "customFields": [
+          {
+            "ID": 1,
+            "name": "Test Area",
+            "value": [
+              {
+                "ID": 2,
+                "value": "APP"
+              }
+            ]
+          }
+        ],
+        "hasDataSets": false,
+        "tags": [],
+        "automationStatus": {
+          "ID": 2,
+          "name": "To Be Automated",
+          "description": "The case is marked for automation",
+          "isDefault": false
+        },
+        "automationOwnerID": null,
+        "automationKey": null,
+        "jiraRequirementIDs": []
+      },
+      "assignedToID": "6092270a7a30960069fcae4e",
+      "assignedByID": "6092270a7a30960069fcae4e",
+      "assignmentDate": 1777537196505,
+      "assignSteps": false,
+      "runs": [
+        {
+          "ID": 4361,
+          "permission": {
+            "value": 15
+          },
+          "testRunStatus": {
+            "ID": 3,
+            "name": "Passed",
+            "description": "The test run has passed"
+          },
+          "effort": null,
+          "isAutomated": false,
+          "executedByID": "6092270a7a30960069fcae4e",
+          "createdDate": 1777537196494,
+          "updatedDate": 1777537221688,
+          "jiraDefectIDs": [],
+          "testRunSteps": null,
+          "dataSetExecutionsCount": 0
+        }
+      ]
+    },
+    {
+      "ID": 4011,
+      "testCase": {
+        "ID": 7783,
+        "jiraProjectID": 10000,
+        "permission": {
+          "value": 15
+        },
+        "key": "SCRUM-TC-7783",
+        "version": 1,
+        "title": "กดข้าม Tour Guide",
+        "description": "เมื่ออยู่หน้า Tour Guide และกดข้าม แล้วไปหน้า Home",
+        "precondition": "เปิดแอปครั้งแรก",
+        "ownedByID": "6092270a7a30960069fcae4e",
+        "folder": {
+          "ID": 725,
+          "name": "[Res App] GU",
+          "description": null,
+          "parentID": 4
+        },
+        "status": {
+          "ID": 3,
+          "name": "Published",
+          "description": "The test is ready for execution"
+        },
+        "priority": {
+          "ID": 2,
+          "name": "High",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "scriptType": {
+          "ID": 1,
+          "name": "Classic",
+          "description": "Steps represented in default representation - step, data and expected results",
+          "isEnabled": true
+        },
+        "type": {
+          "ID": 8,
+          "name": "Regression",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "jiraComponentID": null,
+        "jiraComponentIDs": [],
+        "jiraReleaseID": null,
+        "jiraReleaseIDs": [],
+        "estimatedEffort": null,
+        "createdDate": 1776743304204,
+        "updatedDate": null,
+        "isArchived": false,
+        "customFields": [
+          {
+            "ID": 1,
+            "name": "Test Area",
+            "value": [
+              {
+                "ID": 2,
+                "value": "APP"
+              }
+            ]
+          }
+        ],
+        "hasDataSets": false,
+        "tags": [],
+        "automationStatus": {
+          "ID": 2,
+          "name": "To Be Automated",
+          "description": "The case is marked for automation",
+          "isDefault": false
+        },
+        "automationOwnerID": null,
+        "automationKey": null,
+        "jiraRequirementIDs": []
+      },
+      "assignedToID": "6092270a7a30960069fcae4e",
+      "assignedByID": "6092270a7a30960069fcae4e",
+      "assignmentDate": 1777537196473,
+      "assignSteps": false,
+      "runs": [
+        {
+          "ID": 4360,
+          "permission": {
+            "value": 15
+          },
+          "testRunStatus": {
+            "ID": 3,
+            "name": "Passed",
+            "description": "The test run has passed"
+          },
+          "effort": null,
+          "isAutomated": false,
+          "executedByID": "6092270a7a30960069fcae4e",
+          "createdDate": 1777537196463,
+          "updatedDate": 1777537225396,
+          "jiraDefectIDs": [],
+          "testRunSteps": null,
+          "dataSetExecutionsCount": 0
+        }
+      ]
+    },
+    {
+      "ID": 4010,
+      "testCase": {
+        "ID": 7784,
+        "jiraProjectID": 10000,
+        "permission": {
+          "value": 15
+        },
+        "key": "SCRUM-TC-7784",
+        "version": 1,
+        "title": "กด ถัดไป/ย้อนกลับ",
+        "description": "เมื่ออยู่หน้า Tour Guide และกด ถัดไป/ย้อนกลับ แล้วเปลี่ยนหน้า",
+        "precondition": "เปิดแอปครั้งแรก",
+        "ownedByID": "6092270a7a30960069fcae4e",
+        "folder": {
+          "ID": 725,
+          "name": "[Res App] GU",
+          "description": null,
+          "parentID": 4
+        },
+        "status": {
+          "ID": 3,
+          "name": "Published",
+          "description": "The test is ready for execution"
+        },
+        "priority": {
+          "ID": 3,
+          "name": "Medium",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "scriptType": {
+          "ID": 1,
+          "name": "Classic",
+          "description": "Steps represented in default representation - step, data and expected results",
+          "isEnabled": true
+        },
+        "type": {
+          "ID": 8,
+          "name": "Regression",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "jiraComponentID": null,
+        "jiraComponentIDs": [],
+        "jiraReleaseID": null,
+        "jiraReleaseIDs": [],
+        "estimatedEffort": null,
+        "createdDate": 1776743304304,
+        "updatedDate": null,
+        "isArchived": false,
+        "customFields": [
+          {
+            "ID": 1,
+            "name": "Test Area",
+            "value": [
+              {
+                "ID": 2,
+                "value": "APP"
+              }
+            ]
+          }
+        ],
+        "hasDataSets": false,
+        "tags": [],
+        "automationStatus": {
+          "ID": 2,
+          "name": "To Be Automated",
+          "description": "The case is marked for automation",
+          "isDefault": false
+        },
+        "automationOwnerID": null,
+        "automationKey": null,
+        "jiraRequirementIDs": []
+      },
+      "assignedToID": "6092270a7a30960069fcae4e",
+      "assignedByID": "6092270a7a30960069fcae4e",
+      "assignmentDate": 1777537196442,
+      "assignSteps": false,
+      "runs": [
+        {
+          "ID": 4359,
+          "permission": {
+            "value": 15
+          },
+          "testRunStatus": {
+            "ID": 3,
+            "name": "Passed",
+            "description": "The test run has passed"
+          },
+          "effort": null,
+          "isAutomated": false,
+          "executedByID": "6092270a7a30960069fcae4e",
+          "createdDate": 1777537196430,
+          "updatedDate": 1777537236218,
+          "jiraDefectIDs": [],
+          "testRunSteps": null,
+          "dataSetExecutionsCount": 0
+        }
+      ]
+    },
+    {
+      "ID": 4009,
+      "testCase": {
+        "ID": 7785,
+        "jiraProjectID": 10000,
+        "permission": {
+          "value": 15
+        },
+        "key": "SCRUM-TC-7785",
+        "version": 1,
+        "title": "ไม่แสดง Tour Guide ซ้ำ",
+        "description": "เมื่อเปิดแอปครั้งที่ 2 แล้วต้องไม่แสดง Tour Guide",
+        "precondition": "เคยเปิดแอปแล้ว",
+        "ownedByID": "6092270a7a30960069fcae4e",
+        "folder": {
+          "ID": 725,
+          "name": "[Res App] GU",
+          "description": null,
+          "parentID": 4
+        },
+        "status": {
+          "ID": 3,
+          "name": "Published",
+          "description": "The test is ready for execution"
+        },
+        "priority": {
+          "ID": 2,
+          "name": "High",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "scriptType": {
+          "ID": 1,
+          "name": "Classic",
+          "description": "Steps represented in default representation - step, data and expected results",
+          "isEnabled": true
+        },
+        "type": {
+          "ID": 8,
+          "name": "Regression",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "jiraComponentID": null,
+        "jiraComponentIDs": [],
+        "jiraReleaseID": null,
+        "jiraReleaseIDs": [],
+        "estimatedEffort": null,
+        "createdDate": 1776743304402,
+        "updatedDate": null,
+        "isArchived": false,
+        "customFields": [
+          {
+            "ID": 1,
+            "name": "Test Area",
+            "value": [
+              {
+                "ID": 2,
+                "value": "APP"
+              }
+            ]
+          }
+        ],
+        "hasDataSets": false,
+        "tags": [],
+        "automationStatus": {
+          "ID": 2,
+          "name": "To Be Automated",
+          "description": "The case is marked for automation",
+          "isDefault": false
+        },
+        "automationOwnerID": null,
+        "automationKey": null,
+        "jiraRequirementIDs": []
+      },
+      "assignedToID": "6092270a7a30960069fcae4e",
+      "assignedByID": "6092270a7a30960069fcae4e",
+      "assignmentDate": 1777537196408,
+      "assignSteps": false,
+      "runs": [
+        {
+          "ID": 4358,
+          "permission": {
+            "value": 15
+          },
+          "testRunStatus": {
+            "ID": 3,
+            "name": "Passed",
+            "description": "The test run has passed"
+          },
+          "effort": null,
+          "isAutomated": false,
+          "executedByID": "6092270a7a30960069fcae4e",
+          "createdDate": 1777537196397,
+          "updatedDate": 1777537240356,
+          "jiraDefectIDs": [],
+          "testRunSteps": null,
+          "dataSetExecutionsCount": 0
+        }
+      ]
+    },
+    {
+      "ID": 4008,
+      "testCase": {
+        "ID": 7786,
+        "jiraProjectID": 10000,
+        "permission": {
+          "value": 15
+        },
+        "key": "SCRUM-TC-7786",
+        "version": 1,
+        "title": "Auto Slide Homepage",
+        "description": "เมื่ออยู่หน้า Home แล้ว Slide ต้องเลื่อนทุก 5 วิ",
+        "precondition": "เข้า Home",
+        "ownedByID": "6092270a7a30960069fcae4e",
+        "folder": {
+          "ID": 725,
+          "name": "[Res App] GU",
+          "description": null,
+          "parentID": 4
+        },
+        "status": {
+          "ID": 3,
+          "name": "Published",
+          "description": "The test is ready for execution"
+        },
+        "priority": {
+          "ID": 3,
+          "name": "Medium",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "scriptType": {
+          "ID": 1,
+          "name": "Classic",
+          "description": "Steps represented in default representation - step, data and expected results",
+          "isEnabled": true
+        },
+        "type": {
+          "ID": 8,
+          "name": "Regression",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "jiraComponentID": null,
+        "jiraComponentIDs": [],
+        "jiraReleaseID": null,
+        "jiraReleaseIDs": [],
+        "estimatedEffort": null,
+        "createdDate": 1776743304502,
+        "updatedDate": null,
+        "isArchived": false,
+        "customFields": [
+          {
+            "ID": 1,
+            "name": "Test Area",
+            "value": [
+              {
+                "ID": 2,
+                "value": "APP"
+              }
+            ]
+          }
+        ],
+        "hasDataSets": false,
+        "tags": [],
+        "automationStatus": {
+          "ID": 1,
+          "name": "Manual",
+          "description": "The case is manually executed",
+          "isDefault": false
+        },
+        "automationOwnerID": null,
+        "automationKey": null,
+        "jiraRequirementIDs": []
+      },
+      "assignedToID": "6092270a7a30960069fcae4e",
+      "assignedByID": "6092270a7a30960069fcae4e",
+      "assignmentDate": 1777537196373,
+      "assignSteps": false,
+      "runs": [
+        {
+          "ID": 4357,
+          "permission": {
+            "value": 15
+          },
+          "testRunStatus": {
+            "ID": 3,
+            "name": "Passed",
+            "description": "The test run has passed"
+          },
+          "effort": null,
+          "isAutomated": false,
+          "executedByID": "6092270a7a30960069fcae4e",
+          "createdDate": 1777537196362,
+          "updatedDate": 1777537259200,
+          "jiraDefectIDs": [],
+          "testRunSteps": null,
+          "dataSetExecutionsCount": 0
+        }
+      ]
+    },
+    {
+      "ID": 4007,
+      "testCase": {
+        "ID": 7787,
+        "jiraProjectID": 10000,
+        "permission": {
+          "value": 15
+        },
+        "key": "SCRUM-TC-7787",
+        "version": 1,
+        "title": "เลื่อน Slide ด้วยมือ",
+        "description": "เมื่ออยู่หน้า Home และเลื่อน Slide แล้วเปลี่ยน Slide",
+        "precondition": "-",
+        "ownedByID": "6092270a7a30960069fcae4e",
+        "folder": {
+          "ID": 725,
+          "name": "[Res App] GU",
+          "description": null,
+          "parentID": 4
+        },
+        "status": {
+          "ID": 3,
+          "name": "Published",
+          "description": "The test is ready for execution"
+        },
+        "priority": {
+          "ID": 3,
+          "name": "Medium",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "scriptType": {
+          "ID": 1,
+          "name": "Classic",
+          "description": "Steps represented in default representation - step, data and expected results",
+          "isEnabled": true
+        },
+        "type": {
+          "ID": 8,
+          "name": "Regression",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "jiraComponentID": null,
+        "jiraComponentIDs": [],
+        "jiraReleaseID": null,
+        "jiraReleaseIDs": [],
+        "estimatedEffort": null,
+        "createdDate": 1776743304600,
+        "updatedDate": null,
+        "isArchived": false,
+        "customFields": [
+          {
+            "ID": 1,
+            "name": "Test Area",
+            "value": [
+              {
+                "ID": 2,
+                "value": "APP"
+              }
+            ]
+          }
+        ],
+        "hasDataSets": false,
+        "tags": [],
+        "automationStatus": {
+          "ID": 1,
+          "name": "Manual",
+          "description": "The case is manually executed",
+          "isDefault": false
+        },
+        "automationOwnerID": null,
+        "automationKey": null,
+        "jiraRequirementIDs": []
+      },
+      "assignedToID": "6092270a7a30960069fcae4e",
+      "assignedByID": "6092270a7a30960069fcae4e",
+      "assignmentDate": 1777537196339,
+      "assignSteps": false,
+      "runs": [
+        {
+          "ID": 4356,
+          "permission": {
+            "value": 15
+          },
+          "testRunStatus": {
+            "ID": 3,
+            "name": "Passed",
+            "description": "The test run has passed"
+          },
+          "effort": null,
+          "isAutomated": false,
+          "executedByID": "6092270a7a30960069fcae4e",
+          "createdDate": 1777537196328,
+          "updatedDate": 1777537279624,
+          "jiraDefectIDs": [],
+          "testRunSteps": null,
+          "dataSetExecutionsCount": 0
+        }
+      ]
+    },
+    {
+      "ID": 4006,
+      "testCase": {
+        "ID": 7788,
+        "jiraProjectID": 10000,
+        "permission": {
+          "value": 15
+        },
+        "key": "SCRUM-TC-7788",
+        "version": 1,
+        "title": "Anonymous Login",
+        "description": "เมื่อยังไม่ login แล้วกดเข้าสู่ระบบ/ลงทะเบียน แล้วไปหน้า Login",
+        "precondition": "Anonymous",
+        "ownedByID": "6092270a7a30960069fcae4e",
+        "folder": {
+          "ID": 725,
+          "name": "[Res App] GU",
+          "description": null,
+          "parentID": 4
+        },
+        "status": {
+          "ID": 3,
+          "name": "Published",
+          "description": "The test is ready for execution"
+        },
+        "priority": {
+          "ID": 2,
+          "name": "High",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "scriptType": {
+          "ID": 1,
+          "name": "Classic",
+          "description": "Steps represented in default representation - step, data and expected results",
+          "isEnabled": true
+        },
+        "type": {
+          "ID": 7,
+          "name": "Smoke",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "jiraComponentID": null,
+        "jiraComponentIDs": [],
+        "jiraReleaseID": null,
+        "jiraReleaseIDs": [],
+        "estimatedEffort": null,
+        "createdDate": 1776743304699,
+        "updatedDate": null,
+        "isArchived": false,
+        "customFields": [
+          {
+            "ID": 1,
+            "name": "Test Area",
+            "value": [
+              {
+                "ID": 2,
+                "value": "APP"
+              }
+            ]
+          }
+        ],
+        "hasDataSets": false,
+        "tags": [],
+        "automationStatus": {
+          "ID": 2,
+          "name": "To Be Automated",
+          "description": "The case is marked for automation",
+          "isDefault": false
+        },
+        "automationOwnerID": null,
+        "automationKey": null,
+        "jiraRequirementIDs": []
+      },
+      "assignedToID": "6092270a7a30960069fcae4e",
+      "assignedByID": "6092270a7a30960069fcae4e",
+      "assignmentDate": 1777537196303,
+      "assignSteps": false,
+      "runs": [
+        {
+          "ID": 4355,
+          "permission": {
+            "value": 15
+          },
+          "testRunStatus": {
+            "ID": 3,
+            "name": "Passed",
+            "description": "The test run has passed"
+          },
+          "effort": null,
+          "isAutomated": false,
+          "executedByID": "6092270a7a30960069fcae4e",
+          "createdDate": 1777537196292,
+          "updatedDate": 1777538073579,
+          "jiraDefectIDs": [],
+          "testRunSteps": null,
+          "dataSetExecutionsCount": 0
+        }
+      ]
+    },
+    {
+      "ID": 4005,
+      "testCase": {
+        "ID": 7789,
+        "jiraProjectID": 10000,
+        "permission": {
+          "value": 15
+        },
+        "key": "SCRUM-TC-7789",
+        "version": 1,
+        "title": "Anonymous ซื้อสินค้า",
+        "description": "เมื่อกดซื้อสินค้า แล้วต้อง redirect ไปหน้า login",
+        "precondition": "Anonymous",
+        "ownedByID": "6092270a7a30960069fcae4e",
+        "folder": {
+          "ID": 725,
+          "name": "[Res App] GU",
+          "description": null,
+          "parentID": 4
+        },
+        "status": {
+          "ID": 3,
+          "name": "Published",
+          "description": "The test is ready for execution"
+        },
+        "priority": {
+          "ID": 2,
+          "name": "High",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "scriptType": {
+          "ID": 1,
+          "name": "Classic",
+          "description": "Steps represented in default representation - step, data and expected results",
+          "isEnabled": true
+        },
+        "type": {
+          "ID": 7,
+          "name": "Smoke",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "jiraComponentID": null,
+        "jiraComponentIDs": [],
+        "jiraReleaseID": null,
+        "jiraReleaseIDs": [],
+        "estimatedEffort": null,
+        "createdDate": 1776743304799,
+        "updatedDate": 1777280768554,
+        "isArchived": false,
+        "customFields": [
+          {
+            "ID": 1,
+            "name": "Test Area",
+            "value": [
+              {
+                "ID": 2,
+                "value": "APP"
+              }
+            ]
+          }
+        ],
+        "hasDataSets": false,
+        "tags": [],
+        "automationStatus": {
+          "ID": 2,
+          "name": "To Be Automated",
+          "description": "The case is marked for automation",
+          "isDefault": false
+        },
+        "automationOwnerID": null,
+        "automationKey": null,
+        "jiraRequirementIDs": []
+      },
+      "assignedToID": "6092270a7a30960069fcae4e",
+      "assignedByID": "6092270a7a30960069fcae4e",
+      "assignmentDate": 1777537196269,
+      "assignSteps": false,
+      "runs": [
+        {
+          "ID": 4354,
+          "permission": {
+            "value": 15
+          },
+          "testRunStatus": {
+            "ID": 3,
+            "name": "Passed",
+            "description": "The test run has passed"
+          },
+          "effort": null,
+          "isAutomated": false,
+          "executedByID": "6092270a7a30960069fcae4e",
+          "createdDate": 1777537196257,
+          "updatedDate": 1777541341278,
+          "jiraDefectIDs": [],
+          "testRunSteps": null,
+          "dataSetExecutionsCount": 0
+        }
+      ]
+    },
+    {
+      "ID": 4004,
+      "testCase": {
+        "ID": 7790,
+        "jiraProjectID": 10000,
+        "permission": {
+          "value": 15
+        },
+        "key": "SCRUM-TC-7790",
+        "version": 1,
+        "title": "Anonymous จองบริการ",
+        "description": "เมื่อกดจองบริการ แล้วต้อง redirect ไปหน้า login",
+        "precondition": "Anonymous",
+        "ownedByID": "6092270a7a30960069fcae4e",
+        "folder": {
+          "ID": 725,
+          "name": "[Res App] GU",
+          "description": null,
+          "parentID": 4
+        },
+        "status": {
+          "ID": 3,
+          "name": "Published",
+          "description": "The test is ready for execution"
+        },
+        "priority": {
+          "ID": 2,
+          "name": "High",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "scriptType": {
+          "ID": 1,
+          "name": "Classic",
+          "description": "Steps represented in default representation - step, data and expected results",
+          "isEnabled": true
+        },
+        "type": {
+          "ID": 7,
+          "name": "Smoke",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "jiraComponentID": null,
+        "jiraComponentIDs": [],
+        "jiraReleaseID": null,
+        "jiraReleaseIDs": [],
+        "estimatedEffort": null,
+        "createdDate": 1776743304897,
+        "updatedDate": 1777280807799,
+        "isArchived": false,
+        "customFields": [
+          {
+            "ID": 1,
+            "name": "Test Area",
+            "value": [
+              {
+                "ID": 2,
+                "value": "APP"
+              }
+            ]
+          }
+        ],
+        "hasDataSets": false,
+        "tags": [],
+        "automationStatus": {
+          "ID": 2,
+          "name": "To Be Automated",
+          "description": "The case is marked for automation",
+          "isDefault": false
+        },
+        "automationOwnerID": null,
+        "automationKey": null,
+        "jiraRequirementIDs": []
+      },
+      "assignedToID": "6092270a7a30960069fcae4e",
+      "assignedByID": "6092270a7a30960069fcae4e",
+      "assignmentDate": 1777537196234,
+      "assignSteps": false,
+      "runs": [
+        {
+          "ID": 4353,
+          "permission": {
+            "value": 15
+          },
+          "testRunStatus": {
+            "ID": 3,
+            "name": "Passed",
+            "description": "The test run has passed"
+          },
+          "effort": null,
+          "isAutomated": false,
+          "executedByID": "6092270a7a30960069fcae4e",
+          "createdDate": 1777537196222,
+          "updatedDate": 1777541747672,
+          "jiraDefectIDs": [],
+          "testRunSteps": null,
+          "dataSetExecutionsCount": 0
+        }
+      ]
+    },
+    {
+      "ID": 4003,
+      "testCase": {
+        "ID": 7791,
+        "jiraProjectID": 10000,
+        "permission": {
+          "value": 15
+        },
+        "key": "SCRUM-TC-7791",
+        "version": 1,
+        "title": "สมัครสมาชิกสำเร็จ",
+        "description": "เมื่อกรอกข้อมูลครบ แล้วสมัครสำเร็จ",
+        "precondition": "ไม่มี account",
+        "ownedByID": "6092270a7a30960069fcae4e",
+        "folder": {
+          "ID": 725,
+          "name": "[Res App] GU",
+          "description": null,
+          "parentID": 4
+        },
+        "status": {
+          "ID": 3,
+          "name": "Published",
+          "description": "The test is ready for execution"
+        },
+        "priority": {
+          "ID": 2,
+          "name": "High",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "scriptType": {
+          "ID": 1,
+          "name": "Classic",
+          "description": "Steps represented in default representation - step, data and expected results",
+          "isEnabled": true
+        },
+        "type": {
+          "ID": 7,
+          "name": "Smoke",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "jiraComponentID": null,
+        "jiraComponentIDs": [],
+        "jiraReleaseID": null,
+        "jiraReleaseIDs": [],
+        "estimatedEffort": null,
+        "createdDate": 1776743304995,
+        "updatedDate": null,
+        "isArchived": false,
+        "customFields": [
+          {
+            "ID": 1,
+            "name": "Test Area",
+            "value": [
+              {
+                "ID": 2,
+                "value": "APP"
+              }
+            ]
+          }
+        ],
+        "hasDataSets": false,
+        "tags": [],
+        "automationStatus": {
+          "ID": 2,
+          "name": "To Be Automated",
+          "description": "The case is marked for automation",
+          "isDefault": false
+        },
+        "automationOwnerID": null,
+        "automationKey": null,
+        "jiraRequirementIDs": []
+      },
+      "assignedToID": "6092270a7a30960069fcae4e",
+      "assignedByID": "6092270a7a30960069fcae4e",
+      "assignmentDate": 1777537196200,
+      "assignSteps": false,
+      "runs": [
+        {
+          "ID": 4352,
+          "permission": {
+            "value": 15
+          },
+          "testRunStatus": {
+            "ID": 3,
+            "name": "Passed",
+            "description": "The test run has passed"
+          },
+          "effort": null,
+          "isAutomated": false,
+          "executedByID": "6092270a7a30960069fcae4e",
+          "createdDate": 1777537196188,
+          "updatedDate": 1777538472527,
+          "jiraDefectIDs": [],
+          "testRunSteps": null,
+          "dataSetExecutionsCount": 0
+        }
+      ]
+    },
+    {
+      "ID": 4002,
+      "testCase": {
+        "ID": 7792,
+        "jiraProjectID": 10000,
+        "permission": {
+          "value": 15
+        },
+        "key": "SCRUM-TC-7792",
+        "version": 1,
+        "title": "GU ซื้อสินค้าไม่มี Address",
+        "description": "เมื่อกดซื้อโดยไม่มี Address แล้วต้องแจ้งเตือน",
+        "precondition": "GU",
+        "ownedByID": "6092270a7a30960069fcae4e",
+        "folder": {
+          "ID": 725,
+          "name": "[Res App] GU",
+          "description": null,
+          "parentID": 4
+        },
+        "status": {
+          "ID": 3,
+          "name": "Published",
+          "description": "The test is ready for execution"
+        },
+        "priority": {
+          "ID": 2,
+          "name": "High",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "scriptType": {
+          "ID": 1,
+          "name": "Classic",
+          "description": "Steps represented in default representation - step, data and expected results",
+          "isEnabled": true
+        },
+        "type": {
+          "ID": 7,
+          "name": "Smoke",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "jiraComponentID": null,
+        "jiraComponentIDs": [],
+        "jiraReleaseID": null,
+        "jiraReleaseIDs": [],
+        "estimatedEffort": null,
+        "createdDate": 1776743305092,
+        "updatedDate": null,
+        "isArchived": false,
+        "customFields": [
+          {
+            "ID": 1,
+            "name": "Test Area",
+            "value": [
+              {
+                "ID": 2,
+                "value": "APP"
+              }
+            ]
+          }
+        ],
+        "hasDataSets": false,
+        "tags": [],
+        "automationStatus": {
+          "ID": 2,
+          "name": "To Be Automated",
+          "description": "The case is marked for automation",
+          "isDefault": false
+        },
+        "automationOwnerID": null,
+        "automationKey": null,
+        "jiraRequirementIDs": []
+      },
+      "assignedToID": "6092270a7a30960069fcae4e",
+      "assignedByID": "6092270a7a30960069fcae4e",
+      "assignmentDate": 1777537196162,
+      "assignSteps": false,
+      "runs": [
+        {
+          "ID": 4351,
+          "permission": {
+            "value": 15
+          },
+          "testRunStatus": {
+            "ID": 3,
+            "name": "Passed",
+            "description": "The test run has passed"
+          },
+          "effort": null,
+          "isAutomated": false,
+          "executedByID": "6092270a7a30960069fcae4e",
+          "createdDate": 1777537196151,
+          "updatedDate": 1777538119102,
+          "jiraDefectIDs": [],
+          "testRunSteps": null,
+          "dataSetExecutionsCount": 0
+        }
+      ]
+    },
+    {
+      "ID": 4001,
+      "testCase": {
+        "ID": 7793,
+        "jiraProjectID": 10000,
+        "permission": {
+          "value": 15
+        },
+        "key": "SCRUM-TC-7793",
+        "version": 1,
+        "title": "GU ซื้อสินค้าสำเร็จ",
+        "description": "เมื่อมี Address แล้วซื้อสำเร็จ",
+        "precondition": "GU + Address",
+        "ownedByID": "6092270a7a30960069fcae4e",
+        "folder": {
+          "ID": 725,
+          "name": "[Res App] GU",
+          "description": null,
+          "parentID": 4
+        },
+        "status": {
+          "ID": 3,
+          "name": "Published",
+          "description": "The test is ready for execution"
+        },
+        "priority": {
+          "ID": 2,
+          "name": "High",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "scriptType": {
+          "ID": 1,
+          "name": "Classic",
+          "description": "Steps represented in default representation - step, data and expected results",
+          "isEnabled": true
+        },
+        "type": {
+          "ID": 7,
+          "name": "Smoke",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "jiraComponentID": null,
+        "jiraComponentIDs": [],
+        "jiraReleaseID": null,
+        "jiraReleaseIDs": [],
+        "estimatedEffort": null,
+        "createdDate": 1776743305193,
+        "updatedDate": null,
+        "isArchived": false,
+        "customFields": [
+          {
+            "ID": 1,
+            "name": "Test Area",
+            "value": [
+              {
+                "ID": 2,
+                "value": "APP"
+              }
+            ]
+          }
+        ],
+        "hasDataSets": false,
+        "tags": [],
+        "automationStatus": {
+          "ID": 2,
+          "name": "To Be Automated",
+          "description": "The case is marked for automation",
+          "isDefault": false
+        },
+        "automationOwnerID": null,
+        "automationKey": null,
+        "jiraRequirementIDs": []
+      },
+      "assignedToID": "6092270a7a30960069fcae4e",
+      "assignedByID": "6092270a7a30960069fcae4e",
+      "assignmentDate": 1777537196127,
+      "assignSteps": false,
+      "runs": [
+        {
+          "ID": 4350,
+          "permission": {
+            "value": 15
+          },
+          "testRunStatus": {
+            "ID": 3,
+            "name": "Passed",
+            "description": "The test run has passed"
+          },
+          "effort": null,
+          "isAutomated": false,
+          "executedByID": "6092270a7a30960069fcae4e",
+          "createdDate": 1777537196115,
+          "updatedDate": 1777538130079,
+          "jiraDefectIDs": [],
+          "testRunSteps": null,
+          "dataSetExecutionsCount": 0
+        }
+      ]
+    },
+    {
+      "ID": 4000,
+      "testCase": {
+        "ID": 7794,
+        "jiraProjectID": 10000,
+        "permission": {
+          "value": 15
+        },
+        "key": "SCRUM-TC-7794",
+        "version": 1,
+        "title": "Anonymous เพิ่มชุมชน",
+        "description": "เมื่อกด Add Community แล้วต้องสมัครก่อน",
+        "precondition": "Anonymous",
+        "ownedByID": "6092270a7a30960069fcae4e",
+        "folder": {
+          "ID": 725,
+          "name": "[Res App] GU",
+          "description": null,
+          "parentID": 4
+        },
+        "status": {
+          "ID": 3,
+          "name": "Published",
+          "description": "The test is ready for execution"
+        },
+        "priority": {
+          "ID": 2,
+          "name": "High",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "scriptType": {
+          "ID": 1,
+          "name": "Classic",
+          "description": "Steps represented in default representation - step, data and expected results",
+          "isEnabled": true
+        },
+        "type": {
+          "ID": 8,
+          "name": "Regression",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "jiraComponentID": null,
+        "jiraComponentIDs": [],
+        "jiraReleaseID": null,
+        "jiraReleaseIDs": [],
+        "estimatedEffort": null,
+        "createdDate": 1776743305293,
+        "updatedDate": null,
+        "isArchived": false,
+        "customFields": [
+          {
+            "ID": 1,
+            "name": "Test Area",
+            "value": [
+              {
+                "ID": 2,
+                "value": "APP"
+              }
+            ]
+          }
+        ],
+        "hasDataSets": false,
+        "tags": [],
+        "automationStatus": {
+          "ID": 1,
+          "name": "Manual",
+          "description": "The case is manually executed",
+          "isDefault": false
+        },
+        "automationOwnerID": null,
+        "automationKey": null,
+        "jiraRequirementIDs": []
+      },
+      "assignedToID": "6092270a7a30960069fcae4e",
+      "assignedByID": "6092270a7a30960069fcae4e",
+      "assignmentDate": 1777537196091,
+      "assignSteps": false,
+      "runs": [
+        {
+          "ID": 4349,
+          "permission": {
+            "value": 15
+          },
+          "testRunStatus": {
+            "ID": 3,
+            "name": "Passed",
+            "description": "The test run has passed"
+          },
+          "effort": null,
+          "isAutomated": false,
+          "executedByID": "6092270a7a30960069fcae4e",
+          "createdDate": 1777537196081,
+          "updatedDate": 1777540471338,
+          "jiraDefectIDs": [],
+          "testRunSteps": null,
+          "dataSetExecutionsCount": 0
+        }
+      ]
+    },
+    {
+      "ID": 3999,
+      "testCase": {
+        "ID": 7795,
+        "jiraProjectID": 10000,
+        "permission": {
+          "value": 15
+        },
+        "key": "SCRUM-TC-7795",
+        "version": 1,
+        "title": "GU เพิ่มชุมชน",
+        "description": "เมื่อเพิ่มชุมชน แล้วเปลี่ยนเป็น Resident",
+        "precondition": "GU",
+        "ownedByID": "6092270a7a30960069fcae4e",
+        "folder": {
+          "ID": 725,
+          "name": "[Res App] GU",
+          "description": null,
+          "parentID": 4
+        },
+        "status": {
+          "ID": 3,
+          "name": "Published",
+          "description": "The test is ready for execution"
+        },
+        "priority": {
+          "ID": 2,
+          "name": "High",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "scriptType": {
+          "ID": 1,
+          "name": "Classic",
+          "description": "Steps represented in default representation - step, data and expected results",
+          "isEnabled": true
+        },
+        "type": {
+          "ID": 7,
+          "name": "Smoke",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "jiraComponentID": null,
+        "jiraComponentIDs": [],
+        "jiraReleaseID": null,
+        "jiraReleaseIDs": [],
+        "estimatedEffort": null,
+        "createdDate": 1776743305394,
+        "updatedDate": null,
+        "isArchived": false,
+        "customFields": [
+          {
+            "ID": 1,
+            "name": "Test Area",
+            "value": [
+              {
+                "ID": 2,
+                "value": "APP"
+              }
+            ]
+          }
+        ],
+        "hasDataSets": false,
+        "tags": [],
+        "automationStatus": {
+          "ID": 2,
+          "name": "To Be Automated",
+          "description": "The case is marked for automation",
+          "isDefault": false
+        },
+        "automationOwnerID": null,
+        "automationKey": null,
+        "jiraRequirementIDs": []
+      },
+      "assignedToID": "6092270a7a30960069fcae4e",
+      "assignedByID": "6092270a7a30960069fcae4e",
+      "assignmentDate": 1777537196057,
+      "assignSteps": false,
+      "runs": [
+        {
+          "ID": 4348,
+          "permission": {
+            "value": 15
+          },
+          "testRunStatus": {
+            "ID": 3,
+            "name": "Passed",
+            "description": "The test run has passed"
+          },
+          "effort": null,
+          "isAutomated": false,
+          "executedByID": "6092270a7a30960069fcae4e",
+          "createdDate": 1777537196046,
+          "updatedDate": 1777538655435,
+          "jiraDefectIDs": [],
+          "testRunSteps": null,
+          "dataSetExecutionsCount": 0
+        }
+      ]
+    },
+    {
+      "ID": 3998,
+      "testCase": {
+        "ID": 7796,
+        "jiraProjectID": 10000,
+        "permission": {
+          "value": 15
+        },
+        "key": "SCRUM-TC-7796",
+        "version": 1,
+        "title": "Code ชุมชนไม่ถูกต้อง",
+        "description": "เมื่อ GU กรอกรหัสผิด แล้ว error",
+        "precondition": "GU",
+        "ownedByID": "6092270a7a30960069fcae4e",
+        "folder": {
+          "ID": 725,
+          "name": "[Res App] GU",
+          "description": null,
+          "parentID": 4
+        },
+        "status": {
+          "ID": 3,
+          "name": "Published",
+          "description": "The test is ready for execution"
+        },
+        "priority": {
+          "ID": 3,
+          "name": "Medium",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "scriptType": {
+          "ID": 1,
+          "name": "Classic",
+          "description": "Steps represented in default representation - step, data and expected results",
+          "isEnabled": true
+        },
+        "type": {
+          "ID": 8,
+          "name": "Regression",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "jiraComponentID": null,
+        "jiraComponentIDs": [],
+        "jiraReleaseID": null,
+        "jiraReleaseIDs": [],
+        "estimatedEffort": null,
+        "createdDate": 1776743305494,
+        "updatedDate": null,
+        "isArchived": false,
+        "customFields": [
+          {
+            "ID": 1,
+            "name": "Test Area",
+            "value": [
+              {
+                "ID": 2,
+                "value": "APP"
+              }
+            ]
+          }
+        ],
+        "hasDataSets": false,
+        "tags": [],
+        "automationStatus": {
+          "ID": 1,
+          "name": "Manual",
+          "description": "The case is manually executed",
+          "isDefault": false
+        },
+        "automationOwnerID": null,
+        "automationKey": null,
+        "jiraRequirementIDs": []
+      },
+      "assignedToID": "6092270a7a30960069fcae4e",
+      "assignedByID": "6092270a7a30960069fcae4e",
+      "assignmentDate": 1777537196023,
+      "assignSteps": false,
+      "runs": [
+        {
+          "ID": 4347,
+          "permission": {
+            "value": 15
+          },
+          "testRunStatus": {
+            "ID": 3,
+            "name": "Passed",
+            "description": "The test run has passed"
+          },
+          "effort": null,
+          "isAutomated": false,
+          "executedByID": "6092270a7a30960069fcae4e",
+          "createdDate": 1777537196010,
+          "updatedDate": 1777538679155,
+          "jiraDefectIDs": [],
+          "testRunSteps": null,
+          "dataSetExecutionsCount": 0
+        }
+      ]
+    },
+    {
+      "ID": 3997,
+      "testCase": {
+        "ID": 7797,
+        "jiraProjectID": 10000,
+        "permission": {
+          "value": 15
+        },
+        "key": "SCRUM-TC-7797",
+        "version": 1,
+        "title": "Pet Splash ครั้งแรก",
+        "description": "เมื่อเข้า Pet ครั้งแรก แล้วแสดง Splash",
+        "precondition": "GU",
+        "ownedByID": "6092270a7a30960069fcae4e",
+        "folder": {
+          "ID": 725,
+          "name": "[Res App] GU",
+          "description": null,
+          "parentID": 4
+        },
+        "status": {
+          "ID": 3,
+          "name": "Published",
+          "description": "The test is ready for execution"
+        },
+        "priority": {
+          "ID": 3,
+          "name": "Medium",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "scriptType": {
+          "ID": 1,
+          "name": "Classic",
+          "description": "Steps represented in default representation - step, data and expected results",
+          "isEnabled": true
+        },
+        "type": {
+          "ID": 8,
+          "name": "Regression",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "jiraComponentID": null,
+        "jiraComponentIDs": [],
+        "jiraReleaseID": null,
+        "jiraReleaseIDs": [],
+        "estimatedEffort": null,
+        "createdDate": 1776743305596,
+        "updatedDate": null,
+        "isArchived": false,
+        "customFields": [
+          {
+            "ID": 1,
+            "name": "Test Area",
+            "value": [
+              {
+                "ID": 2,
+                "value": "APP"
+              }
+            ]
+          }
+        ],
+        "hasDataSets": false,
+        "tags": [],
+        "automationStatus": {
+          "ID": 1,
+          "name": "Manual",
+          "description": "The case is manually executed",
+          "isDefault": false
+        },
+        "automationOwnerID": null,
+        "automationKey": null,
+        "jiraRequirementIDs": []
+      },
+      "assignedToID": "6092270a7a30960069fcae4e",
+      "assignedByID": "6092270a7a30960069fcae4e",
+      "assignmentDate": 1777537195977,
+      "assignSteps": false,
+      "runs": [
+        {
+          "ID": 4346,
+          "permission": {
+            "value": 15
+          },
+          "testRunStatus": {
+            "ID": 3,
+            "name": "Passed",
+            "description": "The test run has passed"
+          },
+          "effort": null,
+          "isAutomated": false,
+          "executedByID": "6092270a7a30960069fcae4e",
+          "createdDate": 1777537195964,
+          "updatedDate": 1777539100964,
+          "jiraDefectIDs": [],
+          "testRunSteps": null,
+          "dataSetExecutionsCount": 0
+        }
+      ]
+    },
+    {
+      "ID": 3996,
+      "testCase": {
+        "ID": 7798,
+        "jiraProjectID": 10000,
+        "permission": {
+          "value": 15
+        },
+        "key": "SCRUM-TC-7798",
+        "version": 1,
+        "title": "Anonymous เข้า Pet",
+        "description": "เมื่อ Anonymous เข้า Pet แล้วต้อง Login",
+        "precondition": "Anonymous",
+        "ownedByID": "6092270a7a30960069fcae4e",
+        "folder": {
+          "ID": 725,
+          "name": "[Res App] GU",
+          "description": null,
+          "parentID": 4
+        },
+        "status": {
+          "ID": 3,
+          "name": "Published",
+          "description": "The test is ready for execution"
+        },
+        "priority": {
+          "ID": 2,
+          "name": "High",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "scriptType": {
+          "ID": 1,
+          "name": "Classic",
+          "description": "Steps represented in default representation - step, data and expected results",
+          "isEnabled": true
+        },
+        "type": {
+          "ID": 7,
+          "name": "Smoke",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "jiraComponentID": null,
+        "jiraComponentIDs": [],
+        "jiraReleaseID": null,
+        "jiraReleaseIDs": [],
+        "estimatedEffort": null,
+        "createdDate": 1776743305697,
+        "updatedDate": null,
+        "isArchived": false,
+        "customFields": [
+          {
+            "ID": 1,
+            "name": "Test Area",
+            "value": [
+              {
+                "ID": 2,
+                "value": "APP"
+              }
+            ]
+          }
+        ],
+        "hasDataSets": false,
+        "tags": [],
+        "automationStatus": {
+          "ID": 2,
+          "name": "To Be Automated",
+          "description": "The case is marked for automation",
+          "isDefault": false
+        },
+        "automationOwnerID": null,
+        "automationKey": null,
+        "jiraRequirementIDs": []
+      },
+      "assignedToID": "6092270a7a30960069fcae4e",
+      "assignedByID": "6092270a7a30960069fcae4e",
+      "assignmentDate": 1777537195939,
+      "assignSteps": false,
+      "runs": [
+        {
+          "ID": 4345,
+          "permission": {
+            "value": 15
+          },
+          "testRunStatus": {
+            "ID": 3,
+            "name": "Passed",
+            "description": "The test run has passed"
+          },
+          "effort": null,
+          "isAutomated": false,
+          "executedByID": "6092270a7a30960069fcae4e",
+          "createdDate": 1777537195927,
+          "updatedDate": 1777539239609,
+          "jiraDefectIDs": [],
+          "testRunSteps": null,
+          "dataSetExecutionsCount": 0
+        }
+      ]
+    },
+    {
+      "ID": 3995,
+      "testCase": {
+        "ID": 7799,
+        "jiraProjectID": 10000,
+        "permission": {
+          "value": 15
+        },
+        "key": "SCRUM-TC-7799",
+        "version": 1,
+        "title": "GU สร้าง Pet สำเร็จ",
+        "description": "เมื่อ GU เข้า Pet สร้างรายการสำเร็จ",
+        "precondition": "GU",
+        "ownedByID": "6092270a7a30960069fcae4e",
+        "folder": {
+          "ID": 725,
+          "name": "[Res App] GU",
+          "description": null,
+          "parentID": 4
+        },
+        "status": {
+          "ID": 3,
+          "name": "Published",
+          "description": "The test is ready for execution"
+        },
+        "priority": {
+          "ID": 2,
+          "name": "High",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "scriptType": {
+          "ID": 1,
+          "name": "Classic",
+          "description": "Steps represented in default representation - step, data and expected results",
+          "isEnabled": true
+        },
+        "type": {
+          "ID": 7,
+          "name": "Smoke",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "jiraComponentID": null,
+        "jiraComponentIDs": [],
+        "jiraReleaseID": null,
+        "jiraReleaseIDs": [],
+        "estimatedEffort": null,
+        "createdDate": 1776743305795,
+        "updatedDate": null,
+        "isArchived": false,
+        "customFields": [
+          {
+            "ID": 1,
+            "name": "Test Area",
+            "value": [
+              {
+                "ID": 2,
+                "value": "APP"
+              }
+            ]
+          }
+        ],
+        "hasDataSets": false,
+        "tags": [],
+        "automationStatus": {
+          "ID": 2,
+          "name": "To Be Automated",
+          "description": "The case is marked for automation",
+          "isDefault": false
+        },
+        "automationOwnerID": null,
+        "automationKey": null,
+        "jiraRequirementIDs": []
+      },
+      "assignedToID": "6092270a7a30960069fcae4e",
+      "assignedByID": "6092270a7a30960069fcae4e",
+      "assignmentDate": 1777537195900,
+      "assignSteps": false,
+      "runs": [
+        {
+          "ID": 4344,
+          "permission": {
+            "value": 15
+          },
+          "testRunStatus": {
+            "ID": 3,
+            "name": "Passed",
+            "description": "The test run has passed"
+          },
+          "effort": null,
+          "isAutomated": false,
+          "executedByID": "6092270a7a30960069fcae4e",
+          "createdDate": 1777537195881,
+          "updatedDate": 1777539116855,
+          "jiraDefectIDs": [],
+          "testRunSteps": null,
+          "dataSetExecutionsCount": 0
+        }
+      ]
+    },
+    {
+      "ID": 4014,
+      "testCase": {
+        "ID": 7832,
+        "jiraProjectID": 10000,
+        "permission": {
+          "value": 15
+        },
+        "key": "SCRUM-TC-7832",
+        "version": 1,
+        "title": "Anonymous กดตะกร้าสินค้า",
+        "description": "เมื่อกดตะกร้าสินค้า แล้วต้อง redirect ไปหน้า login",
+        "precondition": "Anonymous",
+        "ownedByID": "6092270a7a30960069fcae4e",
+        "folder": {
+          "ID": 725,
+          "name": "[Res App] GU",
+          "description": null,
+          "parentID": 4
+        },
+        "status": {
+          "ID": 3,
+          "name": "Published",
+          "description": "The test is ready for execution"
+        },
+        "priority": {
+          "ID": 2,
+          "name": "High",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "scriptType": {
+          "ID": 1,
+          "name": "Classic",
+          "description": "Steps represented in default representation - step, data and expected results",
+          "isEnabled": true
+        },
+        "type": {
+          "ID": 9,
+          "name": "Non-Regression",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "jiraComponentID": null,
+        "jiraComponentIDs": [],
+        "jiraReleaseID": null,
+        "jiraReleaseIDs": [],
+        "estimatedEffort": null,
+        "createdDate": 1777278453152,
+        "updatedDate": 1777280869391,
+        "isArchived": false,
+        "customFields": [
+          {
+            "ID": 1,
+            "name": "Test Area",
+            "value": [
+              {
+                "ID": 2,
+                "value": "APP"
+              }
+            ]
+          }
+        ],
+        "hasDataSets": false,
+        "tags": [],
+        "automationStatus": {
+          "ID": 2,
+          "name": "To Be Automated",
+          "description": "The case is marked for automation",
+          "isDefault": false
+        },
+        "automationOwnerID": null,
+        "automationKey": null,
+        "jiraRequirementIDs": []
+      },
+      "assignedToID": "6092270a7a30960069fcae4e",
+      "assignedByID": "6092270a7a30960069fcae4e",
+      "assignmentDate": 1777537196572,
+      "assignSteps": false,
+      "runs": [
+        {
+          "ID": 4363,
+          "permission": {
+            "value": 15
+          },
+          "testRunStatus": {
+            "ID": 3,
+            "name": "Passed",
+            "description": "The test run has passed"
+          },
+          "effort": null,
+          "isAutomated": false,
+          "executedByID": "6092270a7a30960069fcae4e",
+          "createdDate": 1777537196560,
+          "updatedDate": 1777538386788,
+          "jiraDefectIDs": [],
+          "testRunSteps": null,
+          "dataSetExecutionsCount": 0
+        }
+      ]
+    },
+    {
+      "ID": 4013,
+      "testCase": {
+        "ID": 7833,
+        "jiraProjectID": 10000,
+        "permission": {
+          "value": 15
+        },
+        "key": "SCRUM-TC-7833",
+        "version": 1,
+        "title": "Anonymous กดประวัติการซื้อสินค้า",
+        "description": "เมื่อกดประวัติการซื้อสินค้า แล้วต้อง redirect ไปหน้า login",
+        "precondition": "Anonymous",
+        "ownedByID": "6092270a7a30960069fcae4e",
+        "folder": {
+          "ID": 725,
+          "name": "[Res App] GU",
+          "description": null,
+          "parentID": 4
+        },
+        "status": {
+          "ID": 3,
+          "name": "Published",
+          "description": "The test is ready for execution"
+        },
+        "priority": {
+          "ID": 2,
+          "name": "High",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "scriptType": {
+          "ID": 1,
+          "name": "Classic",
+          "description": "Steps represented in default representation - step, data and expected results",
+          "isEnabled": true
+        },
+        "type": {
+          "ID": 9,
+          "name": "Non-Regression",
+          "isArchived": false,
+          "isDefault": false
+        },
+        "jiraComponentID": null,
+        "jiraComponentIDs": [],
+        "jiraReleaseID": null,
+        "jiraReleaseIDs": [],
+        "estimatedEffort": null,
+        "createdDate": 1777278531410,
+        "updatedDate": 1777280892131,
+        "isArchived": false,
+        "customFields": [
+          {
+            "ID": 1,
+            "name": "Test Area",
+            "value": [
+              {
+                "ID": 2,
+                "value": "APP"
+              }
+            ]
+          }
+        ],
+        "hasDataSets": false,
+        "tags": [],
+        "automationStatus": {
+          "ID": 2,
+          "name": "To Be Automated",
+          "description": "The case is marked for automation",
+          "isDefault": false
+        },
+        "automationOwnerID": null,
+        "automationKey": null,
+        "jiraRequirementIDs": []
+      },
+      "assignedToID": "6092270a7a30960069fcae4e",
+      "assignedByID": "6092270a7a30960069fcae4e",
+      "assignmentDate": 1777537196537,
+      "assignSteps": false,
+      "runs": [
+        {
+          "ID": 4362,
+          "permission": {
+            "value": 15
+          },
+          "testRunStatus": {
+            "ID": 3,
+            "name": "Passed",
+            "description": "The test run has passed"
+          },
+          "effort": null,
+          "isAutomated": false,
+          "executedByID": "6092270a7a30960069fcae4e",
+          "createdDate": 1777537196526,
+          "updatedDate": 1777539768271,
+          "jiraDefectIDs": [],
+          "testRunSteps": null,
+          "dataSetExecutionsCount": 0
+        }
+      ]
+    }
+  ],
+  "startAt": 0,
+  "maxResults": 100,
+  "isLast": true
+}
