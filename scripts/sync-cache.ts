@@ -15,11 +15,12 @@ dotenv.config({ path: path.join(process.cwd(), '.env.local') });
  */
 
 import { aioApi } from '../lib/aio-api';
-import {
-  TestCycleCache,
-  FolderCache,
-  CacheManager,
-} from '../lib/excel-cache';
+// Note: excel-cache is deprecated, using JSON cache instead
+// import {
+//   TestCycleCache,
+//   FolderCache,
+//   CacheManager,
+// } from '../lib/excel-cache';
 import { UserMapping } from '../lib/user-mapping';
 
 const args = process.argv.slice(2);
@@ -31,12 +32,11 @@ async function syncTestCycles() {
   console.log('PROJECT_ID:', process.env.NEXT_PUBLIC_AIO_PROJECT_ID ? 'Set ✅' : 'Missing ❌');
   
   try {
-    // Force fetch from API (bypass cache)
-    TestCycleCache.clear();
+    // Note: TestCycleCache is deprecated, data is fetched on-demand
     console.log('Fetching from aioApi.getTestCycles()...');
     const cycles = await aioApi.getTestCycles();
     
-    console.log(`✅ Synced ${cycles.length} test cycles`);
+    console.log(`✅ Fetched ${cycles.length} test cycles`);
     return cycles.length;
   } catch (error) {
     console.error('❌ Error syncing test cycles:', error);
@@ -50,9 +50,9 @@ async function syncFolders() {
   
   try {
     const folders = await aioApi.getFolders();
-    FolderCache.save(folders);
+    // Note: FolderCache is deprecated, data is fetched on-demand
     
-    console.log(`✅ Synced ${folders.length} folders`);
+    console.log(`✅ Fetched ${folders.length} folders`);
     return folders.length;
   } catch (error) {
     console.error('❌ Error syncing folders:', error);
@@ -146,13 +146,14 @@ async function main() {
         
       case 'clear':
         console.log('\n🗑️  Clearing all caches...\n');
-        CacheManager.clearAll();
+        // CacheManager.clearAll(); // Deprecated
         aioApi.clearTestRunCache(); // Clear test run cache too
+        console.log('✅ Cache cleared');
         break;
         
       case 'status':
-        CacheManager.getStatus();
-        console.log('\n');
+        // CacheManager.getStatus(); // Deprecated
+        console.log('\nCache Status:');
         aioApi.getTestRunCacheStatus(); // Show test run cache status
         break;
         
@@ -174,7 +175,8 @@ async function main() {
     console.log('╚════════════════════════════════════════╝\n');
     
     // Show final status
-    CacheManager.getStatus();
+    // CacheManager.getStatus(); // Deprecated
+    console.log('Cache status updated');
     
   } catch (error) {
     console.error('\n❌ Sync failed:', error);

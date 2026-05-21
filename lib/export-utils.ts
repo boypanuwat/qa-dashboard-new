@@ -24,6 +24,7 @@ export async function exportTestRunsToPDF(
   testCycles: TestCycleWithRuns[],
   elementIds: {
     folderSelector: string;
+    statsContainer: string;
     chartContainer: string;
     summaryContainer: string;
   }
@@ -40,14 +41,14 @@ export async function exportTestRunsToPDF(
 
   // Add title
   doc.setFontSize(20);
-  doc.text("Test Execution Report", 14, currentY);
+  doc.text("รายงานสรุปผลการทดสอบ", 14, currentY);
   
   // Add date (right-aligned at top)
-  doc.setFontSize(10);
+  doc.setFontSize(6);
   const pageWidth = doc.internal.pageSize.getWidth();
-  doc.text(`Generated: ${new Date().toLocaleString("th-TH")}`, pageWidth - 14, currentY, { align: 'right' });
+  doc.text(`วันที่: ${new Date().toLocaleString("th-TH")}`, pageWidth - 14, currentY, { align: 'right' });
   
-  currentY += 5;
+  currentY += 2;
 
   // Monitor fetch requests during capture
   const fetchMonitor: { url: string; timestamp: number }[] = [];
@@ -88,9 +89,9 @@ export async function exportTestRunsToPDF(
     container.style.position = 'fixed';
     container.style.left = '-9999px';
     container.style.top = '0';
-    container.style.width = `${element.offsetWidth}px`;
+    container.style.width = `${element.offsetWidth + 32}px`; // เพิ่มความกว้าง 16px ทั้ง 2 ฝั่ง
     container.style.backgroundColor = '#ffffff';
-    container.style.padding = '0';
+    container.style.padding = '16px'; // เพิ่ม padding เพื่อให้เห็นกรอบ
     container.style.margin = '0';
     
     // Clone element (deep clone without Chrome extension injections)
@@ -150,11 +151,10 @@ export async function exportTestRunsToPDF(
       console.log(`  📷 Calling domToPng...`);
       const startFetchCount = fetchMonitor.length;
       
-      // Capture the isolated clone - skip fonts to avoid fetching external fonts
+      // Capture the isolated clone
       const png = await domToPng(container, {
         scale: 2,
         backgroundColor: "#ffffff",
-        skipFonts: true, // Don't fetch fonts from Chrome extensions
       });
       
       const fetchesDuringCapture = fetchMonitor.length - startFetchCount;
@@ -184,13 +184,43 @@ export async function exportTestRunsToPDF(
       const imgHeight = (img.height * imgWidth) / img.width;
 
       doc.setFontSize(14);
-      //doc.text("Test Cycle Folder", 14, currentY);
-      currentY += 7;
+      currentY += 2;
       doc.addImage(folderPng, "PNG", 14, currentY, imgWidth, imgHeight);
       currentY += imgHeight + 10;
       console.log("Folder selector added to PDF");
     } catch (error) {
       console.warn("Folder selector element not found:", error);
+    }
+
+    // Add page break if needed
+    if (currentY > 240) {
+      doc.addPage();
+      currentY = 20;
+    }
+
+    // Capture Stats Cards using clean clone
+    console.log("Capturing stats cards...");
+    try {
+      const statsPng = await captureElementClean(elementIds.statsContainer);
+      console.log("Stats cards captured successfully");
+
+      const img = new Image();
+      img.src = statsPng;
+      await new Promise((resolve) => {
+        img.onload = resolve;
+      });
+
+      const imgWidth = 180;
+      const imgHeight = (img.height * imgWidth) / img.width;
+
+      doc.setFontSize(14);
+      doc.text("Test Status Summary", 14, currentY);
+      currentY += 2;
+      doc.addImage(statsPng, "PNG", 14, currentY, imgWidth, imgHeight);
+      currentY += imgHeight + 10;
+      console.log("Stats cards added to PDF");
+    } catch (error) {
+      console.warn("Stats cards element not found:", error);
     }
 
     // Add page break if needed
@@ -216,7 +246,7 @@ export async function exportTestRunsToPDF(
 
       doc.setFontSize(14);
       doc.text("Test Status Distribution", 14, currentY);
-      currentY += 7;
+      currentY += 2;
       doc.addImage(chartPng, "PNG", 14, currentY, imgWidth, imgHeight);
       console.log("Chart added to PDF");
 
@@ -421,7 +451,7 @@ export function exportTestRunsToExcel(
 
   // Create summary sheet
   const summaryData = [
-    ["Test Execution Report"],
+    ["รายงานสรุปผลการทดสอบ"],
     [""],
     ["Folder:", folder.name],
     ["Generated:", new Date().toLocaleString("th-TH")],

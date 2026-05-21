@@ -70,7 +70,7 @@ async function getLast14DaysData() {
     // Flatten all runs - use updatedDate instead of executionDate
     const allRuns = allTestRuns
       .flat()
-      .flatMap(item => item.runs.map(run => ({
+      .flatMap(item => item.runs.map((run: import('./types').TestRun) => ({
         testCase: item.testCase,
         run: run,
         assignedTo: item.assignedToID,

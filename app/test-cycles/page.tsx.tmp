@@ -401,26 +401,9 @@ export default function TestCyclesPage() {
 
       {loadedTestCycles.length > 0 && (
         <>
+          {/* Summary Statistics Cards */}
           <div id="stats-cards-container" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            <Card className="border-l-4 border-l-blue-700">
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">Total</p>
-                    <p className="text-2xl font-bold text-blue-800">
-                      {combinedStats.passed + combinedStats.failed + combinedStats.blocked + combinedStats.notRun}
-                    </p>
-                    <p className="text-xs text-muted-foreground mt-1">100%</p>
-                  </div>
-                  <div>
-                    <span className="flex items-center gap-1 text-blue-800">
-                      <ClipboardList className="h-12 w-12" />
-                    </span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
+            {/* Passed Card */
             <Card className="border-l-4 border-l-green-500">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
@@ -445,6 +428,7 @@ export default function TestCyclesPage() {
               </CardContent>
             </Card>
 
+            {/* Failed Card */}
             <Card className="border-l-4 border-l-red-500">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
@@ -551,10 +535,7 @@ export default function TestCyclesPage() {
                   {/* Status Breakdown */}
                   <div className="border-t pt-3 space-y-2">
                     <div className="flex justify-between items-center">
-                      <span className="flex items-center gap-1 text-green-600">
-                      <CheckCircle2 className="h-6 w-6" />
-                      <span className="text-muted-foreground">Passed:</span>
-                      </span>
+                      <span className="text-muted-foreground">✅ Passed:</span>
                       <span className="font-semibold text-green-600">
                         {combinedStats.passed} ({(() => {
                           const totalTests = combinedStats.passed + combinedStats.failed + combinedStats.blocked + combinedStats.notRun;
@@ -563,10 +544,7 @@ export default function TestCyclesPage() {
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="flex items-center gap-1 text-red-600">
-                      <XCircle className="h-6 w-6" />
-                      <span className="text-muted-foreground">Failed:</span>
-                      </span>
+                      <span className="text-muted-foreground">❌ Failed:</span>
                       <span className="font-semibold text-red-600">
                         {combinedStats.failed} ({(() => {
                           const totalTests = combinedStats.passed + combinedStats.failed + combinedStats.blocked + combinedStats.notRun;
@@ -575,10 +553,7 @@ export default function TestCyclesPage() {
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="flex items-center gap-1 text-yellow-600">
-                      <AlertCircle className="h-6 w-6" />
-                      <span className="text-muted-foreground">Blocked:</span>
-                      </span>
+                      <span className="text-muted-foreground">🚫 Blocked:</span>
                       <span className="font-semibold text-yellow-600">
                         {combinedStats.blocked} ({(() => {
                           const totalTests = combinedStats.passed + combinedStats.failed + combinedStats.blocked + combinedStats.notRun;
@@ -587,10 +562,7 @@ export default function TestCyclesPage() {
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="flex items-center gap-1 text-gray-600">
-                      <MinusCircle className="h-6 w-6" />
-                      <span className="text-muted-foreground">Not Run:</span>
-                      </span>
+                      <span className="text-muted-foreground">⭕ Not Run:</span>
                       <span className="font-semibold text-gray-600">
                         {combinedStats.notRun} ({(() => {
                           const totalTests = combinedStats.passed + combinedStats.failed + combinedStats.blocked + combinedStats.notRun;

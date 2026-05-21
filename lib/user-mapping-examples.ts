@@ -36,9 +36,7 @@ export async function displayUserDetails(userId: string) {
   
   console.log('User Information:');
   console.log(`  Name: ${userInfo.displayName}`);
-  console.log(`  Email: ${userInfo.email || 'N/A'}`);
-  console.log(`  Team: ${userInfo.team || 'N/A'}`);
-  console.log(`  Role: ${userInfo.role || 'N/A'}`);
+  console.log(`  User ID: ${userInfo.userId}`);
 }
 
 // ตัวอย่างที่ 4: Enrich Test Cycle Data with User Names
@@ -82,27 +80,26 @@ export async function groupByOwner() {
 export async function getStatsByTeam() {
   const cycles = await aioApi.getTestCycles();
   
-  const teamStats = new Map<string, { cycles: number; owners: Set<string> }>();
+  const ownerStats = new Map<string, { cycles: number; userId: string }>();
   
   cycles.forEach((cycle) => {
     const userInfo = getUserInfo(cycle.ownedByID);
-    const team = userInfo.team || 'Unknown Team';
+    const ownerName = userInfo.displayName;
     
-    if (!teamStats.has(team)) {
-      teamStats.set(team, { cycles: 0, owners: new Set() });
+    if (!ownerStats.has(ownerName)) {
+      ownerStats.set(ownerName, { cycles: 0, userId: userInfo.userId });
     }
     
-    const stats = teamStats.get(team)!;
+    const stats = ownerStats.get(ownerName)!;
     stats.cycles++;
-    stats.owners.add(userInfo.displayName);
   });
   
-  console.log('\nStats by Team:');
-  teamStats.forEach((stats, team) => {
-    console.log(`  ${team}:`);
+  console.log('\nStats by Owner:');
+  ownerStats.forEach((stats, owner) => {
+    console.log(`  ${owner}:`);
     console.log(`    Cycles: ${stats.cycles}`);
-    console.log(`    Members: ${stats.owners.size}`);
+    console.log(`    User ID: ${stats.userId}`);
   });
   
-  return teamStats;
+  return ownerStats;
 }
