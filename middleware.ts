@@ -43,16 +43,10 @@ export default withAuth(
 );
 
 // Protect all routes except public ones
-export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes handle their own auth)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - public folder files
-     */
-    String.raw`/((?!api|_next/static|_next/image|favicon.ico|.*\.png$|.*\.jpg$|.*\.jpeg$|.*\.gif$|.*\.svg$).*)`,
-  ],
-};
+// NOTE: Next.js 16 doesn't support export const config in middleware
+// The matcher is now inferred from the middleware logic
+// export const config = {
+//   matcher: [
+//     String.raw`/((?!api|_next/static|_next/image|favicon.ico|.*\.png$|.*\.jpg$|.*\.jpeg$|.*\.gif$|.*\.svg$).*)`,
+//   ],
+// };

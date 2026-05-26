@@ -7,7 +7,7 @@ import { StatsCard } from "@/components/dashboard/stats-card";
 import { TestExecutionChart } from "@/components/dashboard/test-execution-chart";
 import { ExecutionTable } from "@/components/dashboard/execution-table";
 import { useConfigStatus } from "@/hooks/use-config-status";
-import { mockFoldersWithStats, mockTestCycles, mockTestRuns } from "@/lib/aio-mock-data";
+import { mockFoldersWithStats, mockTestRuns } from "@/lib/aio-mock-data";
 import {
   CheckCircle2,
   XCircle,

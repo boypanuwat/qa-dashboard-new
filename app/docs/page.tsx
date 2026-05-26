@@ -89,9 +89,8 @@ export default function DocsPage() {
             <div className="prose prose-sm max-w-none dark:prose-invert">
               <h3 className="text-lg font-semibold">🎯 จุดประสงค์</h3>
               <p className="text-muted-foreground leading-relaxed">
-                QA Dashboard เป็นระบบแสดงผลและวิเคราะห์ข้อมูลการทดสอบซอฟต์แวร์ ที่ดึงข้อมูลจาก 
-                <strong className="text-foreground"> AIO Test Management</strong> มาประมวลผล สรุป และแสดงผลในรูปแบบที่เข้าใจง่าย 
-                พร้อมฟีเจอร์การกรองข้อมูล export รายงาน และวิเคราะห์แนวโน้ม
+                QA Dashboard เป็นระบบแสดงผลและวิเคราะห์ข้อมูลการทดสอบซอฟต์แวร์ ที่ดึงข้อมูลจาก
+                <strong className="text-foreground"> AIO Test Management </strong> มาประมวลผล สรุป และแสดงผลในรูปแบบที่เข้าใจง่าย พร้อมฟีเจอร์การกรองข้อมูล export รายงาน และวิเคราะห์แนวโน้ม
               </p>
 
               <h3 className="text-lg font-semibold mt-6">🔗 การทำงานร่วมกับ AIO Test Management</h3>
@@ -170,7 +169,7 @@ export default function DocsPage() {
               </div>
               <div className="bg-muted/50 rounded-lg p-4 space-y-2">
                 <p className="text-sm text-muted-foreground">
-                  เข้าหน้า Login และคลิก <strong className="text-foreground">"ลงทะเบียนที่นี่"</strong>
+                  เข้าหน้า Login และคลิก <strong className="text-foreground">ลงทะเบียนที่นี่</strong>
                 </p>
                 <ol className="text-sm space-y-1 text-muted-foreground ml-4 list-decimal">
                   <li>กรอกชื่อ-นามสกุล</li>
@@ -203,7 +202,7 @@ export default function DocsPage() {
                 <h3 className="text-lg font-semibold">ตั้งค่า AIO API Credentials</h3>
               </div>
               <div className="bg-muted/50 rounded-lg p-4 space-y-3">
-                <p className="text-sm font-medium text-foreground">คลิกที่ไอคอนผู้ใช้ (มุมขวาบน) → เลือก "Settings"</p>
+                <p className="text-sm font-medium text-foreground">คลิกที่ไอคอนผู้ใช้ (มุมขวาบน) → เลือก Settings</p>
                 
                 <div className="space-y-2">
                   <p className="text-sm font-medium text-foreground">📝 กรอกข้อมูลต่อไปนี้:</p>
@@ -319,7 +318,7 @@ export default function DocsPage() {
                 <ol className="text-sm space-y-1 text-muted-foreground ml-4 list-decimal">
                   <li>เลือก Folder (Sprint) จาก dropdown</li>
                   <li>เลือก Test Cycles ที่ต้องการ (เลือกได้หลายตัว)</li>
-                  <li>คลิก "Apply" เพื่อโหลดข้อมูล</li>
+                  <li>คลิก Apply เพื่อโหลดข้อมูล</li>
                   <li>ดูสถิติ กราฟ และรายละเอียด Test Runs</li>
                   <li>Export รายงานเมื่อต้องการ</li>
                 </ol>
