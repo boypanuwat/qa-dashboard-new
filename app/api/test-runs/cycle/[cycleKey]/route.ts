@@ -121,6 +121,16 @@ export async function GET(
       });
     }
 
+    // At this point, credentials must be valid (not null)
+    if (!credentials) {
+      return NextResponse.json({
+        data: mockTestRuns,
+        cached: false,
+        mock: true,
+        cycleKey,
+      });
+    }
+
     // Check if force refresh is requested
     const { searchParams } = new URL(request.url);
     const forceRefresh = searchParams.get('refresh') !== null;

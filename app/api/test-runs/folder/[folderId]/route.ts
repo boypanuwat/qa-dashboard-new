@@ -172,6 +172,19 @@ export async function GET(
       });
     }
 
+    // At this point, credentials must be valid (not null)
+    if (!credentials) {
+      const mockCycles = mockTestCycles.filter(c => c.folder?.ID === folderId);
+      
+      return NextResponse.json({
+        data: mockTestRuns,
+        cached: false,
+        mock: true,
+        folderName: mockCycles[0]?.folder?.name || `Folder ${folderId}`,
+        cycleCount: mockCycles.length,
+      });
+    }
+
     // Check if force refresh is requested
     const { searchParams } = new URL(request.url);
     const forceRefresh = searchParams.get('refresh') !== null;
@@ -281,13 +294,6 @@ export async function GET(
     
     return NextResponse.json(
       { 
-        error: 'Failed to fetch test runs',
-        details: error instanceof Error ? error.message : 'Unknown error'
-      },
-      { status: 500 }
-    );
-  }
-}
         error: 'Failed to fetch test runs',
         details: error instanceof Error ? error.message : 'Unknown error'
       },

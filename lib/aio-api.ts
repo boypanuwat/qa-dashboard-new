@@ -15,14 +15,14 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 const USE_MOCK_DATA = false;
 
 // Detect if running in Node.js (script) or Browser/Next.js
-const isNodeScript = typeof window === 'undefined' && process.env.NODE_ENV !== 'production';
+const isNodeScript =  globalThis.window === undefined && process.env.NODE_ENV !== 'production';
 
 // API Configuration - optional for browser mode (uses proxy), required for Node.js scripts
 function getProjectID() {
   const projectId = process.env.NEXT_PUBLIC_AIO_PROJECT_ID;
   
   // In browser mode, PROJECT_ID is not needed (uses API proxy)
-  if (typeof window !== 'undefined') {
+  if (globalThis.window !== undefined) {
     return projectId || ''; // Return empty string if not set, proxy will handle it
   }
   
@@ -443,24 +443,12 @@ export const aioApi = {
     }
 
     try {
-      // Check cache first (if in Node.js environment)
-      if (TestRunCache && TestRunCache.isCacheValid(folderID)) {
-        console.log(`✅ Using cached test runs for folder ${folderID}`);
-        const cached = TestRunCache.load(folderID);
-        if (cached) {
-          return cached;
-        }
-      }
-
       // First, get all cycles in this folder
       const cycles = await this.getTestCyclesByFolder(folderID);
       
       if (cycles.length === 0) {
         return [];
       }
-
-      // Get folder name for cache
-      const folderName = cycles[0]?.folder?.name || `Folder ${folderID}`;
 
       // Then, fetch test runs for each cycle from API
       console.log(`📡 Fetching test runs for ${cycles.length} cycles in folder ${folderID} from API...`);
@@ -488,11 +476,6 @@ export const aioApi = {
 
       const uniqueTestRuns = Array.from(testRunMap.values());
       console.log(`✅ Loaded ${uniqueTestRuns.length} unique test runs from ${allTestRuns.length} total runs`);
-      
-      // Save to cache
-      if (TestRunCache) {
-        TestRunCache.save(folderID, folderName, uniqueTestRuns);
-      }
       
       return uniqueTestRuns;
     } catch (error) {
@@ -536,23 +519,5 @@ export const aioApi = {
     memoryCachedCycles = null;
     memoryCacheTimestamp = 0;
     testRunsCycleCache.clear();
-  },
-  
-  // Clear test run cache for specific folder
-  clearTestRunCache(folderId?: number) {
-    if (TestRunCache) {
-      if (folderId) {
-        TestRunCache.clearFolder(folderId);
-      } else {
-        TestRunCache.clearAll();
-      }
-    }
-  },
-  
-  // Get test run cache status
-  getTestRunCacheStatus() {
-    if (TestRunCache) {
-      TestRunCache.getStatus();
-    }
   },
 };

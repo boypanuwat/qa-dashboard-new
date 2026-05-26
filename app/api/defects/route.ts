@@ -7,9 +7,6 @@ import {
   generateCriticalBugTrend,
 } from '@/lib/google-sheets';
 
-export const dynamic = 'force-dynamic'; // Disable static generation
-export const revalidate = 0; // Disable caching
-
 export async function GET() {
   try {
     console.log('Defects API called');
@@ -18,7 +15,14 @@ export async function GET() {
     if (defects.length === 0) {
       return NextResponse.json(
         { error: 'No defects data available' },
-        { status: 404 }
+        { 
+          status: 404,
+          headers: {
+            'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0',
+          }
+        }
       );
     }
 
@@ -41,12 +45,25 @@ export async function GET() {
       criticalBugTrend,
       severityStats,
       totalDefects: defects.length,
+    }, {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+      }
     });
   } catch (error) {
     console.error('Error in defects API:', error);
     return NextResponse.json(
       { error: 'Failed to fetch defects data', details: String(error) },
-      { status: 500 }
+      { 
+        status: 500,
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0',
+        }
+      }
     );
   }
 }
