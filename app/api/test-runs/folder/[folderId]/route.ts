@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { TestRunItem, TestCycle } from '@/lib/types';
 import { TestRunJsonCache } from '@/lib/testrun-json-cache';
-
-// API Configuration
-const API_URL = process.env.NEXT_PUBLIC_AIO_API_URL;
-const API_TOKEN = process.env.NEXT_PUBLIC_AIO_API_TOKEN;
-const PROJECT_ID = process.env.NEXT_PUBLIC_AIO_PROJECT_ID;
+import { apiRequireAuth } from '@/lib/auth-helpers';
+import { getAIOCredentials, AIOCredentials } from '@/lib/aio-credentials';
+import { mockTestRuns, mockTestCycles } from '@/lib/aio-mock-data';
 
 // Transform test runs from AIO API
 function transformTestRuns(items: any[]): TestRunItem[] {
@@ -39,19 +37,22 @@ function transformTestRuns(items: any[]): TestRunItem[] {
 }
 
 // Fetch test runs from AIO API
-async function fetchTestRunsFromAPI(cycleKey: string): Promise<TestRunItem[]> {
+async function fetchTestRunsFromAPI(
+  cycleKey: string,
+  credentials: AIOCredentials
+): Promise<TestRunItem[]> {
   let allTestRuns: TestRunItem[] = [];
   let startAt = 0;
   const maxResults = 100;
   let hasMore = true;
 
   while (hasMore) {
-    const url = `${API_URL}/project/${PROJECT_ID}/testcycle/${cycleKey}/testrun?maxResults=${maxResults}&startAt=${startAt}`;
+    const url = `${credentials.apiUrl}/project/${credentials.projectId}/testcycle/${cycleKey}/testrun?maxResults=${maxResults}&startAt=${startAt}`;
     
     const response = await fetch(url, {
       headers: {
         accept: 'application/json',
-        Authorization: `AioAuth ${API_TOKEN}`,
+        Authorization: `AioAuth ${credentials.apiToken}`,
       },
       cache: 'no-store',
     });
@@ -75,13 +76,16 @@ async function fetchTestRunsFromAPI(cycleKey: string): Promise<TestRunItem[]> {
 }
 
 // Fetch cycles by folder
-async function fetchCyclesByFolder(folderId: number): Promise<TestCycle[]> {
-  const url = `${API_URL}/project/${PROJECT_ID}/testcycle?maxResults=1000`;
+async function fetchCyclesByFolder(
+  folderId: number,
+  credentials: AIOCredentials
+): Promise<TestCycle[]> {
+  const url = `${credentials.apiUrl}/project/${credentials.projectId}/testcycle?maxResults=1000`;
   
   const response = await fetch(url, {
     headers: {
       accept: 'application/json',
-      Authorization: `AioAuth ${API_TOKEN}`,
+      Authorization: `AioAuth ${credentials.apiToken}`,
     },
     cache: 'no-store',
   });
@@ -126,6 +130,9 @@ export async function GET(
   context: { params: Promise<{ folderId: string }> }
 ) {
   try {
+    // Require authentication
+    const session = await apiRequireAuth();
+    
     const { folderId: folderIdStr } = await context.params;
     const folderId = parseInt(folderIdStr, 10);
 
@@ -136,13 +143,42 @@ export async function GET(
       );
     }
 
+    // Try to get user-specific credentials FIRST
+    let credentials: AIOCredentials | null = null;
+    let usingMockData = false;
+    
+    try {
+      credentials = await getAIOCredentials(session.user.email);
+    } catch (error) {
+      // If no credentials, return mock data (don't cache it)
+      if (error instanceof Error && (error as any).code === 'NO_CREDENTIALS') {
+        console.log(`ℹ️ User ${session.user.email} using mock data (credentials not configured)`);
+        usingMockData = true;
+      } else {
+        throw error;
+      }
+    }
+    
+    // If using mock data, return immediately without caching
+    if (usingMockData) {
+      const mockCycles = mockTestCycles.filter(c => c.folder?.ID === folderId);
+      
+      return NextResponse.json({
+        data: mockTestRuns,
+        cached: false,
+        mock: true,
+        folderName: mockCycles[0]?.folder?.name || `Folder ${folderId}`,
+        cycleCount: mockCycles.length,
+      });
+    }
+
     // Check if force refresh is requested
     const { searchParams } = new URL(request.url);
     const forceRefresh = searchParams.get('refresh') !== null;
 
     console.log(`\n📊 Request: Test runs for folder ${folderId} ${forceRefresh ? '(force refresh)' : ''}`);
 
-    // Check cache first (unless force refresh)
+    // Check cache only if we have credentials (not force refresh)
     if (!forceRefresh) {
       const cached = TestRunJsonCache.load(folderId);
       if (cached) {
@@ -164,7 +200,7 @@ export async function GET(
     const startTime = Date.now();
 
     // Fetch cycles for this folder
-    const cycles = await fetchCyclesByFolder(folderId);
+    const cycles = await fetchCyclesByFolder(folderId, credentials);
     console.log(`📦 Found ${cycles.length} cycles in folder ${folderId}`);
 
     if (cycles.length === 0) {
@@ -182,7 +218,7 @@ export async function GET(
     console.log(`🔄 Fetching test runs for ${cycles.length} cycles...`);
     
     const allTestRunsPromises = cycles.map((cycle) =>
-      fetchTestRunsFromAPI(cycle.key).catch((error) => {
+      fetchTestRunsFromAPI(cycle.key, credentials).catch((error) => {
         console.error(`Failed to fetch test runs for cycle ${cycle.key}:`, error);
         return [];
       })
@@ -215,8 +251,43 @@ export async function GET(
 
   } catch (error) {
     console.error('Error in test runs API:', error);
+    
+    // Handle authentication errors
+    if (error instanceof Error && error.message === 'Unauthorized') {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+    
+    // Handle missing credentials - return mock data instead of error
+    if (error instanceof Error && (error as any).code === 'NO_CREDENTIALS') {
+      console.log('ℹ️ Using mock data (credentials not configured)');
+      
+      const { folderId: folderIdStr } = await context.params;
+      const folderId = parseInt(folderIdStr, 10);
+      
+      // Filter mock data by folder
+      const mockCycles = mockTestCycles.filter(c => c.folder?.ID === folderId);
+      
+      return NextResponse.json({
+        data: mockTestRuns,
+        cached: false,
+        mock: true,
+        folderName: mockCycles[0]?.folder?.name || `Folder ${folderId}`,
+        cycleCount: mockCycles.length,
+      });
+    }
+    
     return NextResponse.json(
       { 
+        error: 'Failed to fetch test runs',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      },
+      { status: 500 }
+    );
+  }
+}
         error: 'Failed to fetch test runs',
         details: error instanceof Error ? error.message : 'Unknown error'
       },

@@ -1,10 +1,6 @@
 import { DashboardStats, TestExecution, ChartData } from "./types";
 import { mockStats, mockExecutions, mockChartData } from "./mock-data";
 import { aioApi } from "./aio-api";
-import { getUserName } from "./user-mapping";
-
-// Simulate API delay
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // Helper to get last 14 days data from real test runs
 async function getLast14DaysData() {
@@ -44,7 +40,7 @@ async function getLast14DaysData() {
     console.log(`📊 Dashboard: Fetching test runs for ${allCycles.length} cycles (with cache)...`);
     
     const BATCH_SIZE = 6;
-    const allTestRuns: any[] = [];
+    const allTestRuns: Awaited<ReturnType<typeof aioApi.getTestRunsByCycle>>[] = [];
     let completedCount = 0;
     const startTime = Date.now();
 
@@ -83,7 +79,7 @@ async function getLast14DaysData() {
     if (runsWithDates.length > 0) {
       const dates = runsWithDates.map(({ run }) => run.updatedDate).sort((a, b) => b - a);
       const mostRecent = new Date(dates[0]).toLocaleDateString('th-TH');
-      const oldest = new Date(dates[dates.length - 1]).toLocaleDateString('th-TH');
+      const oldest = new Date(dates.at(-1) ?? dates[0]).toLocaleDateString('th-TH');
       console.log(`📊 Dashboard: Date range: ${oldest} to ${mostRecent}`);
     }
 
@@ -98,7 +94,7 @@ async function getLast14DaysData() {
     if (filteredRuns.length > 0) {
       const dates = filteredRuns.map(({ run }) => run.updatedDate).sort((a, b) => b - a);
       const mostRecent = new Date(dates[0]).toLocaleDateString('th-TH');
-      const oldest = new Date(dates[dates.length - 1]).toLocaleDateString('th-TH');
+      const oldest = new Date(dates.at(-1) ?? dates[0]).toLocaleDateString('th-TH');
       console.log(`📊 Dashboard: 14-day range: ${oldest} to ${mostRecent}`);
     }
 
@@ -173,16 +169,22 @@ export const dashboardApi = {
     
     // Sort by updatedDate (most recent first) and take top 10
     const sortedRuns = runs
-      .sort((a, b) => (b.run.updatedDate || 0) - (a.run.updatedDate || 0))
+      .toSorted((a, b) => (b.run.updatedDate || 0) - (a.run.updatedDate || 0))
       .slice(0, 10);
+
+    const mapStatus = (status: string): TestExecution["status"] => {
+      const normalizedStatus = status.toLowerCase();
+      if (normalizedStatus === 'passed') return 'passed';
+      if (normalizedStatus === 'failed') return 'failed';
+      if (normalizedStatus === 'blocked') return 'blocked';
+      return 'not_run';
+    };
 
     // Map assignedToID to displayName using user-mapping.csv
     return sortedRuns.map(({ testCase, run, assignedTo }) => ({
       id: testCase.key,
       name: testCase.title,
-      status: run.status.toLowerCase() === 'passed' ? 'passed' :
-              run.status.toLowerCase() === 'failed' ? 'failed' :
-              run.status.toLowerCase() === 'blocked' ? 'blocked' : 'not_run',
+      status: mapStatus(run.status),
       executedDate: new Date(run.updatedDate).toLocaleDateString('th-TH', {
         year: 'numeric',
         month: 'short',
@@ -191,7 +193,7 @@ export const dashboardApi = {
         minute: '2-digit',
       }),
       duration: run.executionTime ? `${Math.round(run.executionTime / 1000)}s` : '-',
-      assignee: assignedTo ? getUserName(assignedTo) : 'Unassigned',
+      assignee: assignedTo ?? 'Unassigned',
     }));
   },
 

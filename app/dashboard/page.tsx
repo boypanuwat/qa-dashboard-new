@@ -6,6 +6,8 @@ import { FolderWithStats, TestCycle, TestExecution, TestRunItem } from "@/lib/ty
 import { StatsCard } from "@/components/dashboard/stats-card";
 import { TestExecutionChart } from "@/components/dashboard/test-execution-chart";
 import { ExecutionTable } from "@/components/dashboard/execution-table";
+import { useConfigStatus } from "@/hooks/use-config-status";
+import { mockFoldersWithStats, mockTestCycles, mockTestRuns } from "@/lib/aio-mock-data";
 import {
   CheckCircle2,
   XCircle,
@@ -28,13 +30,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import userMappingJson from "@/data/user-mapping.json";
 
-// Client-side user name lookup (static JSON bundled at build time)
-const userMapping = userMappingJson as Record<string, string>;
+// Client-side user name lookup - just return userId as-is
 const getUserName = (userId: string | null | undefined): string => {
   if (!userId) return "Unassigned";
-  return userMapping[userId] || userId;
+  return userId;
 };
 
 type FlatRun = {
@@ -109,6 +109,7 @@ function toEndOfDay(dateStr: string): number {
 }
 
 export default function DashboardPage() {
+  const { status, isLoading: isLoadingConfig } = useConfigStatus();
   const [folders, setFolders] = useState<FolderWithStats[]>([]);
   const [selectedFolderIds, setSelectedFolderIds] = useState<number[]>([]);
   const [allRuns, setAllRuns] = useState<FlatRun[]>([]);
@@ -134,8 +135,29 @@ export default function DashboardPage() {
   const hasActiveFilter =
     testerFilter !== "" || dateStart !== "" || dateEnd !== "";
 
-  // Load folders on mount and auto-select latest folder
+  // Load folders on mount - use mock data if no credentials
   useEffect(() => {
+    // Wait for config check to complete
+    if (isLoadingConfig) return;
+
+    // If no config, use mock data directly without API call
+    if (!status?.hasConfig) {
+      console.log("ℹ️ No credentials configured, using mock folders");
+      
+      // Schedule state updates to avoid cascading renders
+      queueMicrotask(() => {
+        setFolders(mockFoldersWithStats);
+        setLoadingFolders(false);
+        
+        // Auto-select latest folder (first one since mock is pre-sorted)
+        if (mockFoldersWithStats.length > 0) {
+          setSelectedFolderIds([mockFoldersWithStats[0].ID]);
+        }
+      });
+      return;
+    }
+
+    // Has credentials - call API
     aioApi
       .getFolders()
       .then((data) => {
@@ -152,6 +174,47 @@ export default function DashboardPage() {
         }
       })
       .catch(() => setLoadingFolders(false));
+  }, [status, isLoadingConfig]);
+
+  // Listen for config updates and reload folders
+  useEffect(() => {
+    const handleConfigUpdate = () => {
+      console.log('🔄 Config updated, clearing cache and reloading folders...');
+      
+      // Clear API cache
+      aioApi.clearCache();
+      
+      setLoadingFolders(true);
+      
+      // Clear selected folders and runs
+      setSelectedFolderIds([]);
+      setAllRuns([]);
+      
+      // Reload folders based on new config
+      aioApi.getFolders()
+        .then((data) => {
+          setFolders(data);
+          setLoadingFolders(false);
+          
+          // Auto-select latest folder
+          if (data.length > 0) {
+            const latestFolder = data.reduce((latest, folder) => 
+              folder.ID > latest.ID ? folder : latest,
+              data[0]
+            );
+            setSelectedFolderIds([latestFolder.ID]);
+          }
+        })
+        .catch(() => {
+          setLoadingFolders(false);
+        });
+    };
+    
+    globalThis.window?.addEventListener('config-updated', handleConfigUpdate);
+    
+    return () => {
+      globalThis.window?.removeEventListener('config-updated', handleConfigUpdate);
+    };
   }, []);
 
   // Load test runs whenever selected folders change
@@ -166,6 +229,28 @@ export default function DashboardPage() {
         return;
       }
 
+      // If no credentials, use mock data directly without API calls
+      if (!status?.hasConfig) {
+        setLoadingRuns(true);
+        setLoadingProgress("กำลังโหลดข้อมูล...");
+        
+        // Simulate loading delay for UX consistency
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        if (!cancelled) {
+          const flatRuns: FlatRun[] = [];
+          mockTestRuns.forEach((item) => {
+            flatRuns.push(...flattenTestRunItem(item));
+          });
+          
+          setAllRuns(flatRuns);
+          setLoadingProgress(`✅ โหลด ${mockTestRuns.length} test runs สำเร็จ`);
+          setLoadingRuns(false);
+        }
+        return;
+      }
+
+      // Has credentials - call API
       setLoadingRuns(true);
       setLoadingProgress("กำลังโหลด cycles...");
 
@@ -230,7 +315,7 @@ export default function DashboardPage() {
     return () => {
       cancelled = true;
     };
-  }, [selectedFolderIds]);
+  }, [selectedFolderIds, status]);
 
   // --- Available testers derived from loaded data ---
   const availableTesters = useMemo(() => {
@@ -467,7 +552,7 @@ export default function DashboardPage() {
       <div>
         <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
         <p className="text-muted-foreground">
-          Overview of test execution and quality metrics
+          ภาพรวมผลการทดสอบและคุณภาพซอฟต์แวร์
         </p>
       </div>
 

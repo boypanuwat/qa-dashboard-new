@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-
-// API Configuration from environment variables
-const API_URL = process.env.NEXT_PUBLIC_AIO_API_URL;
-const API_TOKEN = process.env.NEXT_PUBLIC_AIO_API_TOKEN;
+import { apiRequireAuth } from "@/lib/auth-helpers";
+import { getAIOCredentials } from "@/lib/aio-credentials";
 
 export async function GET(
   request: NextRequest,
@@ -10,25 +8,28 @@ export async function GET(
 ) {
   const { path } = await context.params;
   
-  if (!API_URL || !API_TOKEN) {
-    return NextResponse.json(
-      { error: "API configuration is missing" },
-      { status: 500 }
-    );
-  }
-
-  // Reconstruct the full path and query params
-  const endpoint = `/${path.join("/")}`;
-  const searchParams = request.nextUrl.searchParams.toString();
-  const fullUrl = `${API_URL}${endpoint}${searchParams ? `?${searchParams}` : ""}`;
-
-  console.log("Proxying request to:", fullUrl);
-
   try {
+    // Require authentication
+    const session = await apiRequireAuth();
+    
+    // Get user-specific credentials (fallback to env if not configured)
+    const credentials = await getAIOCredentials(session.user.email);
+
+    // Reconstruct the full path and query params
+    let endpoint = `/${path.join("/")}`;
+    
+    // Replace :projectId placeholder with actual project ID
+    endpoint = endpoint.replace(':projectId', credentials.projectId);
+    
+    const searchParams = request.nextUrl.searchParams.toString();
+    const fullUrl = `${credentials.apiUrl}${endpoint}${searchParams ? `?${searchParams}` : ""}`;
+
+    console.log("Proxying request to:", fullUrl);
+
     const response = await fetch(fullUrl, {
       headers: {
         accept: "application/json",
-        Authorization: `AioAuth ${API_TOKEN}`,
+        Authorization: `AioAuth ${credentials.apiToken}`,
       },
       cache: "no-store", // Disable caching for fresh data
     });
@@ -47,7 +48,30 @@ export async function GET(
     const data = await response.json();
     return NextResponse.json(data);
   } catch (error) {
+    // Handle missing credentials (user needs to configure) - this is expected, not an error
+    if (error instanceof Error && (error as any).code === 'NO_CREDENTIALS') {
+      console.log('ℹ️ No credentials configured, client will use mock data');
+      return NextResponse.json(
+        { 
+          error: "Configuration required",
+          message: "Please configure your AIO credentials in Settings",
+          code: "NO_CREDENTIALS"
+        },
+        { status: 424 } // 424 Failed Dependency
+      );
+    }
+    
+    // Log other errors
     console.error("Proxy fetch error:", error);
+    
+    // Handle authentication errors
+    if (error instanceof Error && error.message === 'Unauthorized') {
+      return NextResponse.json(
+        { error: "Authentication required" },
+        { status: 401 }
+      );
+    }
+    
     return NextResponse.json(
       { error: "Failed to fetch from AIO API", details: String(error) },
       { status: 500 }

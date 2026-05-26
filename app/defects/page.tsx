@@ -98,7 +98,7 @@ export default function DefectsPage() {
       <div className="flex-1 flex items-center justify-center h-screen">
         <div className="flex flex-col items-center gap-3">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          <p className="text-sm text-muted-foreground">Loading defects data from Google Sheets...</p>
+          <p className="text-sm text-muted-foreground">กำลังโหลดข้อมูลจาก Google Sheets...</p>
         </div>
       </div>
     );
@@ -110,7 +110,7 @@ export default function DefectsPage() {
         <div>
           <h2 className="text-3xl font-bold tracking-tight">Defect Analytics</h2>
           <p className="text-muted-foreground">
-            Comprehensive defect tracking and analysis
+            การติดตามและวิเคราะห์ข้อบกพร่องอย่างครบถ้วน (Comprehensive defect tracking and analysis)
           </p>
         </div>
         <Card className="border-destructive">
@@ -118,14 +118,14 @@ export default function DefectsPage() {
             <div className="flex items-start gap-3">
               <AlertTriangle className="h-5 w-5 text-destructive" />
               <div>
-                <h3 className="text-sm font-semibold mb-1">Failed to load data</h3>
-                <p className="text-sm text-muted-foreground">{error || 'Unknown error occurred'}</p>
+                <h3 className="text-sm font-semibold mb-1">ไม่สามารถโหลดข้อมูลได้</h3>
+                <p className="text-sm text-muted-foreground">{error || 'เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ'}</p>
                 <p className="text-sm text-muted-foreground mt-2">
-                  Please check:
+                  โปรดตรวจสอบ:
                   <ul className="list-disc list-inside ml-2">
-                    <li>Google Sheets is shared publicly or with appropriate permissions</li>
-                    <li>Sheet URL is correct</li>
-                    <li>Network connection is stable</li>
+                    <li>Google Sheets ถูกแชร์สาธารณะหรือมีสิทธิ์ที่เหมาะสม</li>
+                    <li>URL ของ Sheet ถูกต้อง</li>
+                    <li>การเชื่อมต่อเครือข่ายมีความเสถียร</li>
                   </ul>
                 </p>
               </div>
@@ -142,7 +142,7 @@ export default function DefectsPage() {
       <div>
         <h2 className="text-3xl font-bold tracking-tight">Defect Analytics</h2>
         <p className="text-muted-foreground">
-          Comprehensive defect tracking and analysis
+          การติดตามและวิเคราะห์ข้อบกพร่องอย่างครบถ้วน (Comprehensive defect tracking and analysis)
         </p>
       </div>
 
@@ -158,7 +158,7 @@ export default function DefectsPage() {
             <p className="text-xs text-muted-foreground">
               <span className="text-green-600 flex items-center gap-1">
                 <TrendingDown className="h-3 w-3" />
-                8.2% from last week
+                ลดลง 8.2% จากสัปดาห์ที่แล้ว (8.2% from last week)
               </span>
             </p>
           </CardContent>

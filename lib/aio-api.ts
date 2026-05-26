@@ -5,19 +5,6 @@ import {
   mockFoldersWithStats,
 } from "./aio-mock-data";
 
-// Test run cache - only available in server-side (Node.js)
-let TestRunCache: any = null;
-
-// Dynamically import test run cache only in Node.js environment
-if (typeof window === 'undefined') {
-  try {
-    const testRunCacheModule = require('./testrun-cache');
-    TestRunCache = testRunCacheModule.TestRunCache;
-  } catch (error) {
-    console.log('Test run cache not available');
-  }
-}
-
 // In-memory cache for test runs by cycle (10 minutes TTL)
 const testRunsCycleCache = new Map<string, { data: TestRunItem[]; timestamp: number }>();
 const CYCLE_CACHE_TTL = 10 * 60 * 1000; // 10 minutes
@@ -27,9 +14,19 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 // Toggle this to switch between mock and real API
 const USE_MOCK_DATA = false;
 
-// API Configuration - อ่านแบบ dynamic แทนการ cache
+// Detect if running in Node.js (script) or Browser/Next.js
+const isNodeScript = typeof window === 'undefined' && process.env.NODE_ENV !== 'production';
+
+// API Configuration - optional for browser mode (uses proxy), required for Node.js scripts
 function getProjectID() {
   const projectId = process.env.NEXT_PUBLIC_AIO_PROJECT_ID;
+  
+  // In browser mode, PROJECT_ID is not needed (uses API proxy)
+  if (typeof window !== 'undefined') {
+    return projectId || ''; // Return empty string if not set, proxy will handle it
+  }
+  
+  // In Node.js script mode, PROJECT_ID is required
   if (!projectId) {
     throw new Error(
       "NEXT_PUBLIC_AIO_PROJECT_ID is missing. Check your .env.local file and restart the server."
@@ -43,14 +40,9 @@ let memoryCachedCycles: TestCycle[] | null = null;
 let memoryCacheTimestamp: number = 0;
 const MEMORY_CACHE_DURATION = 2 * 60 * 1000; // 2 minutes
 
-// Detect if running in Node.js (script) or Browser/Next.js
-const isNodeScript = typeof window === 'undefined' && process.env.NODE_ENV !== 'production';
-
 // Helper function to make API calls
 // Uses Next.js proxy in browser, direct API in Node.js scripts
 async function fetchAIO(endpoint: string) {
-  const PROJECT_ID = getProjectID();
-
   // Node.js script mode: เรียก AIO API โดยตรง
   if (isNodeScript) {
     const API_URL = process.env.NEXT_PUBLIC_AIO_API_URL;
@@ -62,7 +54,10 @@ async function fetchAIO(endpoint: string) {
       );
     }
 
-    const fullUrl = `${API_URL}${endpoint}`;
+    // Replace :projectId placeholder with actual project ID
+    const PROJECT_ID = getProjectID();
+    const resolvedEndpoint = endpoint.replace(':projectId', PROJECT_ID);
+    const fullUrl = `${API_URL}${resolvedEndpoint}`;
     console.log("Fetching directly:", fullUrl);
 
     try {
@@ -89,14 +84,20 @@ async function fetchAIO(endpoint: string) {
 
   // Browser/Next.js mode: ใช้ Next.js API proxy
   const url = `/api/aio${endpoint}`;
-  console.log("Fetching via proxy:", url);
 
   try {
     const response = await fetch(url, {
       cache: "no-store", // Disable caching for fresh data
     });
 
-    console.log("Proxy response status:", response.status);
+    // Handle 424 (missing credentials) - use mock data
+    if (response.status === 424) {
+      // Throw special error that will be caught and handled with mock data
+      const error = new Error('NO_CREDENTIALS') as Error & { code?: string; useMock?: boolean };
+      error.code = 'NO_CREDENTIALS';
+      error.useMock = true;
+      throw error;
+    }
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
@@ -107,7 +108,10 @@ async function fetchAIO(endpoint: string) {
 
     return response.json();
   } catch (error) {
-    console.error("Fetch error:", error);
+    // Don't log NO_CREDENTIALS as error - it's expected when not configured
+    if (!(error instanceof Error && (error as any).code === 'NO_CREDENTIALS')) {
+      console.error("Fetch error:", error);
+    }
     throw error;
   }
 }
@@ -236,11 +240,9 @@ async function fetchAllTestCycles(): Promise<TestCycle[]> {
 
   console.log("Fetching all test cycles with pagination...");
   
-  const PROJECT_ID = getProjectID();
-  
   while (hasMore) {
     const data = await fetchAIO(
-      `/project/${PROJECT_ID}/testcycle?maxResults=${maxResults}&startAt=${startAt}`
+      `/project/:projectId/testcycle?maxResults=${maxResults}&startAt=${startAt}`
     );
     const cycles = transformTestCycles(data.items);
     allCycles = allCycles.concat(cycles);
@@ -274,6 +276,12 @@ export const aioApi = {
     try {
       return await fetchAllTestCycles();
     } catch (error) {
+      // If credentials not configured, use mock data
+      if (error instanceof Error && (error as any).code === 'NO_CREDENTIALS') {
+        console.log("ℹ️ Using mock data (credentials not configured)");
+        return mockTestCycles;
+      }
+      
       console.error("Error fetching test cycles:", error);
       throw error;
     }
@@ -337,6 +345,12 @@ export const aioApi = {
       // Remove latestCreatedDate from result and return top 100
       return allFolders.slice(0, 100).map(({ latestCreatedDate, ...folder }) => folder);
     } catch (error) {
+      // If credentials not configured, use mock data
+      if (error instanceof Error && (error as any).code === 'NO_CREDENTIALS') {
+        console.log("ℹ️ Using mock data (credentials not configured)");
+        return mockFoldersWithStats;
+      }
+      
       console.error("Error fetching folders:", error);
       throw error;
     }
@@ -354,6 +368,12 @@ export const aioApi = {
       const allCycles = await fetchAllTestCycles();
       return allCycles.filter((c) => c.folder?.ID === folderID);
     } catch (error) {
+      // If credentials not configured, use mock data
+      if (error instanceof Error && (error as any).code === 'NO_CREDENTIALS') {
+        console.log("ℹ️ Using mock data (credentials not configured)");
+        return mockTestCycles.filter((c) => c.folder?.ID === folderID);
+      }
+      
       console.error("Error fetching test cycles:", error);
       throw error;
     }
@@ -381,11 +401,9 @@ export const aioApi = {
       const maxResults = 100;
       let hasMore = true;
 
-      const PROJECT_ID = getProjectID();
-
       while (hasMore) {
         const data = await fetchAIO(
-          `/project/${PROJECT_ID}/testcycle/${cycleKey}/testrun?maxResults=${maxResults}&startAt=${startAt}`
+          `/project/:projectId/testcycle/${cycleKey}/testrun?maxResults=${maxResults}&startAt=${startAt}`
         );
         const testRuns = transformTestRuns(data.items);
         allTestRuns = allTestRuns.concat(testRuns);
@@ -406,6 +424,13 @@ export const aioApi = {
       return allTestRuns;
     } catch (error) {
       console.error("Error fetching test runs:", error);
+      
+      // If credentials not configured, use mock data
+      if (error instanceof Error && (error as any).code === 'NO_CREDENTIALS') {
+        console.warn("⚠️ Using mock data due to missing credentials");
+        return mockTestRuns;
+      }
+      
       throw error;
     }
   },
@@ -472,6 +497,13 @@ export const aioApi = {
       return uniqueTestRuns;
     } catch (error) {
       console.error("Error fetching test runs by folder:", error);
+      
+      // If credentials not configured, use mock data
+      if (error instanceof Error && (error as any).code === 'NO_CREDENTIALS') {
+        console.warn("⚠️ Using mock data due to missing credentials");
+        return mockTestRuns;
+      }
+      
       throw error;
     }
   },
@@ -487,6 +519,12 @@ export const aioApi = {
       // Use cached function to fetch all test cycles
       return await fetchAllTestCycles();
     } catch (error) {
+      // If credentials not configured, use mock data
+      if (error instanceof Error && (error as any).code === 'NO_CREDENTIALS') {
+        console.log("ℹ️ Using mock data (credentials not configured)");
+        return mockTestCycles;
+      }
+      
       console.error("Error fetching test cycles:", error);
       throw error;
     }
@@ -494,9 +532,10 @@ export const aioApi = {
 
   // Clear the cache to force refresh data
   clearCache() {
-    console.log("Clearing test cycles cache");
+    console.log("Clearing all caches (cycles and test runs)");
     memoryCachedCycles = null;
     memoryCacheTimestamp = 0;
+    testRunsCycleCache.clear();
   },
   
   // Clear test run cache for specific folder

@@ -8,16 +8,21 @@
     "start": "next start",
     "lint": "eslint",
     "generate-users": "tsx scripts/generate-user-mapping.ts",
-    "sync-cache": "tsx scripts/sync-cache.ts"
+    "sync-cache": "tsx scripts/sync-cache.ts",
+    "create-user": "tsx scripts/create-first-user.ts"
   },
   "dependencies": {
+    "@radix-ui/react-label": "^2.1.8",
+    "bcryptjs": "^3.0.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "googleapis": "^172.0.0",
     "jspdf": "^4.2.1",
     "jspdf-autotable": "^5.0.7",
     "lucide-react": "^1.14.0",
     "modern-screenshot": "^4.7.0",
     "next": "16.2.5",
+    "next-auth": "^4.24.14",
     "next-themes": "^0.4.6",
     "papaparse": "^5.5.3",
     "radix-ui": "^1.4.3",
@@ -31,6 +36,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/papaparse": "^5.5.2",
     "@types/react": "^19",

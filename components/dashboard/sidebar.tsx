@@ -8,10 +8,12 @@ import {
   TestTube2,
   BarChart3,
   Settings,
-  FileText,
+  BookOpen,
   Bug,
 } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { UserInfo } from "@/components/user-info";
+import { LogoutButton } from "@/components/logout-button";
 
 const navItems = [
   {
@@ -36,8 +38,8 @@ const navItems = [
   },
   {
     title: "Documentation",
-    href: "/documentation",
-    icon: FileText,
+    href: "/docs",
+    icon: BookOpen,
   },
   {
     title: "Settings",
@@ -79,16 +81,9 @@ export function Sidebar() {
           );
         })}
       </nav>
-      <div className="border-t p-4">
-        <div className="flex items-center gap-3 rounded-lg px-3 py-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
-            <span className="text-sm font-semibold">JD</span>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-medium">John Doe</span>
-            <span className="text-xs text-muted-foreground">QA Lead</span>
-          </div>
-        </div>
+      <div className="border-t p-4 space-y-2">
+        <UserInfo />
+        <LogoutButton variant="outline" />
       </div>
     </div>
   );

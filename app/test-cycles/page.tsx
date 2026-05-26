@@ -6,12 +6,15 @@ import { FolderWithStats, TestCycleWithRuns, TestCycle } from "@/lib/types";
 import { FolderCycleSelector } from "@/components/test-cycles/folder-cycle-selector";
 import { TestRunsTable } from "@/components/test-cycles/test-runs-table";
 import { CustomPieChart } from "@/components/dashboard/pie-chart";
-import { AlertCircle, CheckCircle2, ClipboardList, FileDown, FileText, Loader2, MinusCircle, Printer, RefreshCw, XCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { AlertCircle, CheckCircle2, ClipboardList, Loader2, MinusCircle, XCircle } from "lucide-react";
+import { RefreshButton, ExportPDFButton, ExportExcelButton, ActionButtonGroup } from "@/components/ui/action-buttons";
 import { Card, CardContent } from "@/components/ui/card";
 import { exportTestRunsToExcel, exportTestRunsToPDF } from "@/lib/export-utils";
+import { useConfigStatus } from "@/hooks/use-config-status";
+import { mockFoldersWithStats, mockTestCycles, mockTestRuns } from "@/lib/aio-mock-data";
 
 export default function TestCyclesPage() {
+  const { status, isLoading: isLoadingConfig } = useConfigStatus();
   const [folders, setFolders] = useState<FolderWithStats[]>([]);
   const [selectedFolderIds, setSelectedFolderIds] = useState<number[]>([]);
   
@@ -36,9 +39,21 @@ export default function TestCyclesPage() {
   // Cache cycles to avoid re-fetching on refresh
   const cyclesCacheRef = useRef<Map<number, any[]>>(new Map());
 
-  // Load folders on mount
+  // Load folders on mount - use mock data if no credentials
   useEffect(() => {
     async function loadFolders() {
+      // Wait for config check to complete
+      if (isLoadingConfig) return;
+
+      // If no config, use mock data directly without API call
+      if (!status?.hasConfig) {
+        console.log("ℹ️ No credentials configured, using mock folders");
+        setFolders(mockFoldersWithStats);
+        setLoading(false);
+        return;
+      }
+
+      // Has credentials - call API
       try {
         const data = await aioApi.getFolders();
         setFolders(data);
@@ -50,7 +65,7 @@ export default function TestCyclesPage() {
       }
     }
     loadFolders();
-  }, []);
+  }, [status, isLoadingConfig]);
 
   // Load cycle list when folders are selected (without test runs)
   useEffect(() => {
@@ -66,6 +81,23 @@ export default function TestCyclesPage() {
       setLoadingCyclesList(true);
       
       try {
+        // If no credentials, use mock data directly without API call
+        if (!status?.hasConfig) {
+          console.log("ℹ️ No credentials configured, using mock cycles");
+          
+          // Filter mock cycles by selected folder IDs
+          const filteredCycles = mockTestCycles.filter(cycle => 
+            selectedFolderIds.includes(cycle.folder?.ID || 0)
+          );
+          
+          setAvailableCycles(filteredCycles);
+          setSelectedCycleKeys([]);
+          setLoadedTestCycles([]);
+          setLoadingCyclesList(false);
+          return;
+        }
+
+        // Has credentials - call API
         // Get cycles from cache first, or fetch if not cached
         let allCycles: any[] = [];
         const cyclesToFetch: number[] = [];
@@ -113,7 +145,44 @@ export default function TestCyclesPage() {
       }
     }
     loadCyclesList();
-  }, [selectedFolderIds]);
+  }, [selectedFolderIds, status]);
+
+  // Listen for config updates and reload folders
+  useEffect(() => {
+    const handleConfigUpdate = () => {
+      console.log('🔄 Config updated, clearing cache and reloading folders...');
+      
+      // Clear API cache
+      aioApi.clearCache();
+      
+      setLoading(true);
+      
+      // Clear local cache
+      cyclesCacheRef.current.clear();
+      
+      // Clear selections
+      setSelectedFolderIds([]);
+      setSelectedCycleKeys([]);
+      setAvailableCycles([]);
+      setLoadedTestCycles([]);
+      
+      // Reload folders based on new config
+      aioApi.getFolders()
+        .then((data) => {
+          setFolders(data);
+          setLoading(false);
+        })
+        .catch(() => {
+          setLoading(false);
+        });
+    };
+    
+    globalThis.window?.addEventListener('config-updated', handleConfigUpdate);
+    
+    return () => {
+      globalThis.window?.removeEventListener('config-updated', handleConfigUpdate);
+    };
+  }, []);
 
   // Load test runs for selected cycles (called when Apply is clicked)
   const handleLoadTestRuns = async (cycleKeys?: string[]) => {
@@ -129,6 +198,47 @@ export default function TestCyclesPage() {
     setLoadingTestRuns(true);
     setCacheStatus("Preparing...");
 
+    // If no credentials, use mock data directly without API call
+    if (!status?.hasConfig) {
+      console.log("ℹ️ No credentials configured, using mock test runs");
+      
+      // Simulate loading delay for UX consistency
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Calculate stats for mock data
+      const cyclesToLoad = availableCycles.filter(c => keysToLoad.includes(c.key));
+      
+      const calculateCycleStats = (cycle: any, runs: any[]) => {
+        let passed = 0, failed = 0, blocked = 0, notRun = 0;
+        
+        runs.forEach((testRun) => {
+          const latestRun = testRun.runs?.[0];
+          if (latestRun) {
+            const status = latestRun.status?.toUpperCase() || "";
+            if (status === "PASS" || status === "PASSED") passed++;
+            else if (status === "FAIL" || status === "FAILED") failed++;
+            else if (status === "BLOCKED" || status === "BLOCK") blocked++;
+            else notRun++;
+          } else {
+            notRun++;
+          }
+        });
+        
+        return {
+          ...cycle,
+          stats: { total: runs.length, passed, failed, blocked, notRun },
+          testRuns: runs,
+        };
+      };
+      
+      const loadedCycles = cyclesToLoad.map(cycle => calculateCycleStats(cycle, mockTestRuns));
+      setLoadedTestCycles(loadedCycles);
+      setCacheStatus(`✅ Loaded ${cyclesToLoad.length} cycles with mock data`);
+      setLoadingTestRuns(false);
+      return;
+    }
+
+    // Has credentials - call API
     // Capture forceRefresh flag and reset it immediately
     const shouldForceRefresh = forceRefreshRef.current;
     forceRefreshRef.current = false;
@@ -280,13 +390,6 @@ export default function TestCyclesPage() {
     }
   };
 
-  const handlePrintPreview = () => {
-    if (selectedFolderIds.length === 0 || selectedCycleKeys.length === 0) return;
-    const folderIdsParam = selectedFolderIds.join(',');
-    const cycleKeysParam = selectedCycleKeys.join(',');
-    window.open(`/test-cycles/print?folderIds=${folderIdsParam}&cycleKeys=${cycleKeysParam}`, "_blank");
-  };
-
   const handleExportExcel = () => {
     if (selectedFolderIds.length === 0 || loadedTestCycles.length === 0) return;
 
@@ -340,50 +443,22 @@ export default function TestCyclesPage() {
             </p>
           )}
         </div>
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
+        <ActionButtonGroup>
+          <RefreshButton
             onClick={handleRefresh}
             disabled={selectedCycleKeys.length === 0 || loadingTestRuns}
-            title="Refresh data from API"
-          >
-            <RefreshCw className={`mr-2 h-4 w-4 ${loadingTestRuns ? 'animate-spin' : ''}`} />
-            Refresh
-          </Button>
-          <Button
-            variant="outline"
+            loading={loadingTestRuns}
+          />
+          <ExportPDFButton
             onClick={handleExportPDF}
-            disabled={loadedTestCycles.length === 0 || exportingPDF}
-          >
-            {exportingPDF ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Exporting...
-              </>
-            ) : (
-              <>
-                <FileText className="mr-2 h-4 w-4" />
-                Export PDF
-              </>
-            )}
-          </Button>
-          <Button
-            variant="outline"
-            onClick={handlePrintPreview}
             disabled={loadedTestCycles.length === 0}
-          >
-            <Printer className="mr-2 h-4 w-4" />
-            Print Preview
-          </Button>
-          <Button
-            variant="outline"
+            loading={exportingPDF}
+          />
+          <ExportExcelButton
             onClick={handleExportExcel}
             disabled={loadedTestCycles.length === 0}
-          >
-            <FileDown className="mr-2 h-4 w-4" />
-            Export Excel
-          </Button>
-        </div>
+          />
+        </ActionButtonGroup>
       </div>
 
       {/* Folder and Cycle Selector */}
